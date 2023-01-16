@@ -1,6 +1,8 @@
 import React from "react";
 import SideImage from "../../assets/images/about-left.jpg";
 
+import "./index.css";
+
 function AboutUs() {
   return (
     <section id="caring-for-your-teeth" className="aboutus-col">

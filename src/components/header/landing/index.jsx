@@ -57,7 +57,7 @@ function Header() {
               <span />
             </span>
           </button>
-          <Link to="/home" className="navbar-brand logo">
+          <Link to="/" className="navbar-brand logo">
             <img src="" className="img-fluid" alt="Logo" />
           </Link>
         </div>
@@ -85,7 +85,7 @@ function Header() {
               <a href="#connecting-with-us">Conecta con nosotros</a>
             </li>
             <li>
-              <a href="#caring-for-your-teeth">Cuidado de tus dientes</a>
+              <a href="#caring-for-your-teeth">Acerca de nosotros</a>
             </li>
             <li>
               <a href="#testimonials">Testimonios</a>

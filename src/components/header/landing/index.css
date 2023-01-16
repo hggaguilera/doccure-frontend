@@ -1,7 +1,8 @@
 .top-header ul li a {
   color: #fff;
 }
-#mobile_btn, #menu_close {
+#mobile_btn,
+#menu_close {
   border: none;
   background-color: transparent;
 }
@@ -9,12 +10,12 @@
   color: #f3c41b;
 }
 @media (min-width: 992px) {
-	.main-nav > li {
-		margin-right: 12px !important;
-	}
+  .main-nav > li {
+    margin-right: 12px !important;
+  }
 }
 @media (min-width: 1200px) {
-	.main-nav > li {
-		margin-right: 30px !important;
-	}
+  .main-nav > li {
+    margin-right: 30px !important;
+  }
 }

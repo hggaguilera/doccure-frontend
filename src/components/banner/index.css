@@ -1,3 +1,6 @@
 .section-search {
   background-position: center left !important;
 }
+.banner-wrapper .banner-header h1 {
+  max-width: 500px !important;
+}
