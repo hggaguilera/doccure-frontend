@@ -1,0 +1,67 @@
+form button[type="submit"] {
+  border: 1.5px solid #f3c41b;
+  width: 100%;
+}
+.form-group .invalid {
+  font-size: 0.75rem;
+  color: red;
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+.form-group .ant-select {
+  display: block;
+}
+.form-group .ant-select .ant-select-selector {
+  border-color: #f3c41b;
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+}
+.form-group .ant-select .ant-select-selector > .ant-select-selection-search {
+  display: flex;
+  align-items: center;
+}
+.form-group .intl-tel-input {
+  display: block;
+}
+.form-group .intl-tel-input input[type="tel"] {
+  width: 100%;
+  min-height: 46px;
+  border-color: #f3c41b;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 0.25rem;
+  font-size: 15px;
+}
+.form-group .intl-tel-input input[type="tel"]:active,
+.form-group .intl-tel-input input[type="tel"]:focus,
+.form-group .intl-tel-input input[type="tel"]:focus-visible,
+.form-group .intl-tel-input input[type="tel"]:visited,
+.form-group .intl-tel-input input[type="tel"]:focus-within,
+.form-group .intl-tel-input input[type="tel"]:focus-visible {
+  outline: none;
+}
+.form-group .intl-tel-input .country-list {
+  top: 46px !important;
+  width: 100%;
+}
+.form-group .intl-tel-input .country-list > .country {
+  font-size: 15px;
+}
+.form-group .ant-picker {
+  border-color: #f3c41b;
+  display: block;
+}
+.form-group .ant-picker .ant-picker-input {
+  min-height: 38px;
+}
+.form-group .input-error,
+.form-group .input-error > .ant-select-selector,
+.form-group .input-error > input[type="tel"] {
+  border-color: red;
+}
+@media (min-width: 768px) {
+  form button[type="submit"] {
+    margin-top: 30px;
+  }
+}

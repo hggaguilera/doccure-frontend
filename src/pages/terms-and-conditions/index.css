@@ -1,0 +1,7 @@
+.terms-list {
+  font-size: 18px;
+  margin-top: 50px;
+}
+.terms-list li + li {
+  margin-top: 15px;
+}

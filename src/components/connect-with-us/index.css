@@ -1,0 +1,12 @@
+.feature-column {
+  justify-content: center;
+}
+.feature-box {
+ width: 33% !important; 
+}
+
+@media only screen and (max-width: 991.98px) {
+  .feature-box {
+    width: 100% !important;
+  }
+}

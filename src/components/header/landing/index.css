@@ -1,0 +1,20 @@
+.top-header ul li a {
+  color: #fff;
+}
+#mobile_btn, #menu_close {
+  border: none;
+  background-color: transparent;
+}
+.main-nav > li > a.active {
+  color: #f3c41b;
+}
+@media (min-width: 992px) {
+	.main-nav > li {
+		margin-right: 12px !important;
+	}
+}
+@media (min-width: 1200px) {
+	.main-nav > li {
+		margin-right: 30px !important;
+	}
+}
