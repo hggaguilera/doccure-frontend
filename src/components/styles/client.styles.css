@@ -2460,7 +2460,7 @@ html.menu-opened body {
 -----------------------*/
 
 .section-search {
-  background: #f9f9f9 url(./assets/images/banner.jpg) no-repeat bottom center;
+  background: #f9f9f9 url(../assets/images/banner.jpg) no-repeat bottom center;
   min-height: 450px;
   background-size: cover;
   background-repeat: no-repeat;
@@ -3363,7 +3363,7 @@ html.menu-opened body {
   border-radius: 30px 7px;
 }
 .appoinment-section {
-  background: #f9f9f9 url(./assets/images/appointment-bg.jpeg) no-repeat bottom center;
+  background: #f9f9f9 url(../assets/images/appointment-bg.jpeg) no-repeat bottom center;
   padding: 60px 20px;
   background-size: cover;
   background-position: center;

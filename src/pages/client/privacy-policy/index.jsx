@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Layout from "../../components/layout/client";
+import Layout from "../../../components/layout/client";
 
 import "./index.css";
 

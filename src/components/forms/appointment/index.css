@@ -2,6 +2,17 @@ form button[type="submit"] {
   border: 1.5px solid #f3c41b;
   width: 100%;
 }
+form button:disabled,
+form button[disabled] {
+  border: 1.5px solid #e3e3e3;
+  background-color: #e3e3e3;
+  color: #ffffff;
+}
+form button:disabled:hover,
+form button[disabled]:hover {
+  opacity: 1;
+  color: #ffffff;
+}
 .form-group .invalid {
   font-size: 0.75rem;
   color: red;
@@ -60,6 +71,7 @@ form button[type="submit"] {
 .form-group .input-error > input[type="tel"] {
   border-color: red;
 }
+
 @media (min-width: 768px) {
   form button[type="submit"] {
     margin-top: 30px;

@@ -2,12 +2,30 @@
 import React from "react";
 import { Controller } from "react-hook-form";
 import IntlTelInput from "react-intl-tel-input";
-import { DatePicker, Select } from "antd";
+import { DatePicker, TimePicker, Select } from "antd";
 import Input from "./input";
 
 import "./index.css";
 
-function AppointmentForm({ register, control, handleSubmit, onSubmit, errors }) {
+function AppointmentForm({ register, control, handleSubmit, onSubmit, errors, disabled }) {
+  const range = (start, end) => {
+    const result = [];
+    // eslint-disable-next-line no-plusplus
+    for (let i = start; i < end; i++) {
+      result.push(i);
+    }
+    return result;
+  };
+
+  const disabledDateTime = () => ({
+    disabledHours: () => [...range(0, 8), ...range(17, 24)],
+  });
+
+  // const disabledDate = (current) => {
+  //   const now = moment().format("HH:mm a");
+  //   return current >= moment(now, "HH:mm a").isAfter(moment().set("hour", 16));
+  // };
+
   return (
     <form className="row" onSubmit={handleSubmit(onSubmit)}>
       <div className="col-12 col-md-6 col-lg-4">
@@ -97,7 +115,13 @@ function AppointmentForm({ register, control, handleSubmit, onSubmit, errors }) 
             render={({ field, fieldState: { error } }) => {
               return (
                 <>
-                  <DatePicker {...field} className={error?.message ? "input-error" : ""} />
+                  <DatePicker
+                    {...field}
+                    className={error?.message ? "input-error" : ""}
+                    placeholder="Elija la Fecha"
+                    showToday={false}
+                    format="DD-MM-YYYY"
+                  />
                   {error?.message && <p className="invalid">{error.message}</p>}
                 </>
               );
@@ -106,7 +130,34 @@ function AppointmentForm({ register, control, handleSubmit, onSubmit, errors }) 
         </div>
       </div>
       <div className="col-12 col-md-6 col-lg-4">
-        <button type="submit" className="btn-yellow">
+        <div className="form-group mb-0">
+          <label htmlFor="time">Hora</label>
+          <Controller
+            name="time"
+            control={control}
+            render={({ field, fieldState: { error } }) => {
+              return (
+                <>
+                  <TimePicker
+                    {...field}
+                    className={error?.message ? "input-error" : ""}
+                    placeholder="Elija la Hora"
+                    format="HH:mm"
+                    hideDisabledOptions
+                    use12Hours
+                    showNow={false}
+                    minuteStep={30}
+                    disabledTime={disabledDateTime}
+                  />
+                  {error?.message && <p className="invalid">{error.message}</p>}
+                </>
+              );
+            }}
+          />
+        </div>
+      </div>
+      <div className="col-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4">
+        <button type="submit" className="btn-yellow" disabled={disabled}>
           Agendar Cita
         </button>
       </div>

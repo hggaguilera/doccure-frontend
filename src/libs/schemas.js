@@ -6,4 +6,5 @@ export const bookAppointmentSchema = yup.object().shape({
   phoneNumber: yup.string().required("Ingrese un numero de telefono valido"),
   doctorName: yup.string().required("Elija a un Doctor"),
   date: yup.string().required("Especifique una Fecha"),
+  time: yup.string().required("Especifique una Hora"),
 });

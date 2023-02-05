@@ -1,0 +1,16 @@
+.header .header-left .logo {
+  margin-right: 10px;
+}
+.header .header-left .logo img {
+  max-width: 170px;
+}
+.mini-sidebar .header .header-left .logo.logo-small img {
+  max-width: inherit;
+  max-height: 32px;
+}
+#toggle_btn {
+  border: 0;
+  background: transparent;
+  display: flex;
+  align-items: center;
+}

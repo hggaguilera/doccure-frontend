@@ -3,6 +3,7 @@ import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import ReactDOM from "react-dom/client";
 import ScrollToTop from "./components/scroll-to-top";
+import StyleSelector from "./components/style-selector";
 import App from "./App";
 
 // Slick Carousel
@@ -14,14 +15,13 @@ import "react-intl-tel-input/dist/main.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 
-// Custom
-import "./styles.css";
-
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Router>
       <ScrollToTop>
-        <App />
+        <StyleSelector>
+          <App />
+        </StyleSelector>
       </ScrollToTop>
     </Router>
   </React.StrictMode>,

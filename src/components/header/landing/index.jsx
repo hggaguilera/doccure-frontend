@@ -1,4 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
+import Logo from "../../../assets/images/logo.png";
 import "./index.css";
 
 function Header() {
@@ -58,13 +59,13 @@ function Header() {
             </span>
           </button>
           <Link to="/" className="navbar-brand logo">
-            <img src="" className="img-fluid" alt="Logo" />
+            <img src={Logo} className="img-fluid" alt="Logo" />
           </Link>
         </div>
         <div className="main-menu-wrapper">
           <div className="menu-header">
             <Link to="/home" className="menu-logo">
-              <img src="" className="img-fluid" alt="Logo" />
+              <img src={Logo} className="img-fluid" alt="Logo" />
             </Link>
             <button
               type="button"

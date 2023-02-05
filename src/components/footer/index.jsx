@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import FooterLogo from "../../assets/images/footer-logo.png";
 
 function Footer() {
   return (
@@ -9,7 +10,7 @@ function Footer() {
           <div className="row justify-content-center">
             <div className="col-12 text-center">
               <Link to="/" className="footer-logo logo">
-                <img src="" className="img-fluid" alt="Logo" />
+                <img src={FooterLogo} className="img-fluid" alt="footer logo" />
               </Link>
             </div>
             <div className="social-icon media-btn mt-3 mb-2 text-center">

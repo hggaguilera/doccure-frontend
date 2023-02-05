@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import moment from "moment";
 import AppointmentForm from "../forms/appointment";
 
 // Validations
@@ -11,12 +12,18 @@ function Appointment() {
     register,
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({
     resolver: yupResolver(bookAppointmentSchema),
   });
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    const dt = {
+      date: moment(data.date).format("MM-DD-YYYY"),
+      time: moment(data.time, "HH:mm:ss"),
+    };
+    console.log(dt);
+  };
 
   return (
     <>
@@ -50,6 +57,7 @@ function Appointment() {
                     handleSubmit={handleSubmit}
                     onSubmit={onSubmit}
                     errors={errors}
+                    disabled={!isValid}
                   />
                 </div>
               </div>
