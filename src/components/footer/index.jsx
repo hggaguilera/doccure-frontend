@@ -30,10 +30,10 @@ function Footer() {
             <div className="col-12 mt-4 text-center">
               <ul className="policy-menu text-center">
                 <li>
-                  <a href="#caring-for-your-teeth">Acerca de Nosotros</a>
+                  <a href="/#caring-for-your-teeth">Acerca de Nosotros</a>
                 </li>
                 <li>
-                  <a href="#our-doctors">Nuestros Doctores</a>
+                  <a href="/#our-doctors">Nuestros Doctores</a>
                 </li>
                 <li>
                   <Link to="/contact-us">Contactanos</Link>

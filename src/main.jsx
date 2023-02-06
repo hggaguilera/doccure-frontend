@@ -2,9 +2,11 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import ReactDOM from "react-dom/client";
+import { Provider } from "react-redux";
 import ScrollToTop from "./components/scroll-to-top";
 import StyleSelector from "./components/style-selector";
 import App from "./App";
+import { store } from "./store";
 
 // Slick Carousel
 import "slick-carousel/slick/slick.css";
@@ -17,12 +19,14 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Router>
-      <ScrollToTop>
-        <StyleSelector>
-          <App />
-        </StyleSelector>
-      </ScrollToTop>
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <ScrollToTop>
+          <StyleSelector>
+            <App />
+          </StyleSelector>
+        </ScrollToTop>
+      </Router>
+    </Provider>
   </React.StrictMode>,
 );

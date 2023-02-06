@@ -40,7 +40,6 @@ function ConnectWithUs() {
                 Revise Sus <br />
                 Registros Médicos
               </h4>
-              <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem error.</p>
             </div>
           </div>
           <div className="feature-box">
@@ -52,7 +51,6 @@ function ConnectWithUs() {
                 Chequeos Mensuales <br />
                 Disponibles
               </h4>
-              <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem error.</p>
             </div>
           </div>
           <div className="feature-box">
@@ -65,7 +63,6 @@ function ConnectWithUs() {
                 <br />
                 Calificados
               </h4>
-              <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem error.</p>
             </div>
           </div>
         </div>

@@ -8,21 +8,27 @@ import AboutUs from "../../../components/about-us";
 import Testimonials from "../../../components/testimonials";
 import OurDoctors from "../../../components/our-doctors";
 import Appointment from "../../../components/appointment";
+import Loader from "../../../components/loader";
 
-function Home() {
+function Home({ doctorsData, isLoading, error }) {
+  console.log(doctorsData);
+
   return (
-    <Layout>
-      <div className="main-wrapper">
-        <Banner />
-        <HomePoints />
-        <ConnectWithUs />
-        <Location />
-        <AboutUs />
-        <Testimonials />
-        <OurDoctors />
-        <Appointment />
-      </div>
-    </Layout>
+    <>
+      {isLoading ? <Loader /> : null}
+      <Layout>
+        <div className="main-wrapper">
+          <Banner />
+          <HomePoints />
+          <ConnectWithUs />
+          <Location />
+          <AboutUs />
+          <Testimonials />
+          {!error ? <OurDoctors doctors={doctorsData} /> : null}
+          <Appointment doctors={doctorsData} />
+        </div>
+      </Layout>
+    </>
   );
 }
 

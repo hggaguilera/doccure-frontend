@@ -2,7 +2,9 @@
 import React from "react";
 import Slider from "react-slick";
 
-function OurDoctors() {
+import profiles from "../../libs/doctors.json";
+
+function OurDoctors({ doctors }) {
   const settings = {
     dots: false,
     autoplay: false,
@@ -44,55 +46,29 @@ function OurDoctors() {
           <div className="col-lg-12">
             <div className="doctor-slider slider slick-initialized slick-slider">
               <Slider {...settings}>
-                <div className="profile-widget">
-                  <div className="doc-img">
-                    <img className="img-fluid" alt="User" src="" />
-                  </div>
-                  <div className="pro-content">
-                    <h3 className="title">Denby Cathey</h3>
-                    <p className="speciality">MBBS, MD - Ophthalmology</p>
-                  </div>
-                </div>
+                {doctors?.map((doctor) => {
+                  const { prefix, firstName, lastName, specializations, email } = doctor;
 
-                <div className="profile-widget">
-                  <div className="doc-img">
-                    <img className="img-fluid" alt="User" src="" />
-                  </div>
-                  <div className="pro-content">
-                    <h3 className="title">Orali Fisher</h3>
-                    <p className="speciality">BDS - Dental Cosmetology</p>
-                  </div>
-                </div>
-
-                <div className="profile-widget">
-                  <div className="doc-img">
-                    <img className="img-fluid" alt="User" src="" />
-                  </div>
-                  <div className="pro-content">
-                    <h3 className="title">Gennaro Weiner</h3>
-                    <p className="speciality">MDS - Dental Cosmetology</p>
-                  </div>
-                </div>
-
-                <div className="profile-widget">
-                  <div className="doc-img">
-                    <img className="img-fluid" alt="User" src="" />
-                  </div>
-                  <div className="pro-content">
-                    <h3 className="title">Jerelyn Pino</h3>
-                    <p className="speciality">MBBS, DNB - Cardiology</p>
-                  </div>
-                </div>
-
-                <div className="profile-widget">
-                  <div className="doc-img">
-                    <img className="img-fluid" alt="User" src="" />
-                  </div>
-                  <div className="pro-content">
-                    <h3 className="title">Rieko Thrash</h3>
-                    <p className="speciality">MBBS, MS - General Surgery</p>
-                  </div>
-                </div>
+                  return (
+                    <div className="profile-widget">
+                      <div className="doc-img">
+                        <img
+                          className="img-fluid"
+                          alt={`foto de ${prefix} ${firstName} ${lastName}`}
+                          src={profiles[email].profilePic}
+                        />
+                      </div>
+                      <div className="pro-content">
+                        <h3 className="title">
+                          {firstName} {lastName}
+                        </h3>
+                        <p className="speciality">
+                          {prefix} - {specializations[specializations.length - 1]}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
               </Slider>
             </div>
           </div>

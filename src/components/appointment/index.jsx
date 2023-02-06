@@ -6,8 +6,9 @@ import AppointmentForm from "../forms/appointment";
 
 // Validations
 import { bookAppointmentSchema } from "../../libs/schemas";
+import { doctorsFormattedData } from "../../libs/helpers";
 
-function Appointment() {
+function Appointment({ doctors }) {
   const {
     register,
     control,
@@ -16,6 +17,8 @@ function Appointment() {
   } = useForm({
     resolver: yupResolver(bookAppointmentSchema),
   });
+
+  const formattedData = doctorsFormattedData(doctors);
 
   const onSubmit = (data) => {
     const dt = {
@@ -52,6 +55,7 @@ function Appointment() {
               <div className="card">
                 <div className="card-body">
                   <AppointmentForm
+                    data={formattedData}
                     register={register}
                     control={control}
                     handleSubmit={handleSubmit}

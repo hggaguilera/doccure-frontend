@@ -1,0 +1,25 @@
+.contact-box .infor-details p.label {
+  font-size: 16px;
+  color: #000;
+  margin-bottom: 20px;
+  max-width: none;
+  font-weight: 400;
+}
+.contact-box .infor-details p > a {
+  color: #0071dc;
+}
+form button.btn.bg-primary[type="submit"] {
+  width: auto;
+}
+form button.btn.bg-primary:disabled,
+form button.btn.bg-primary[disabled] {
+  border: 1.5px solid #e3e3e3;
+  background-color: #e3e3e3 !important;
+  color: #ffffff;
+}
+
+@media (min-width: 768px) {
+  .contact-box .infor-details {
+    min-height: 216px;
+  }
+}

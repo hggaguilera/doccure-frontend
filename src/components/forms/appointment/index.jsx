@@ -7,7 +7,7 @@ import Input from "./input";
 
 import "./index.css";
 
-function AppointmentForm({ register, control, handleSubmit, onSubmit, errors, disabled }) {
+function AppointmentForm({ data, register, control, handleSubmit, onSubmit, errors, disabled }) {
   const range = (start, end) => {
     const result = [];
     // eslint-disable-next-line no-plusplus
@@ -97,7 +97,7 @@ function AppointmentForm({ register, control, handleSubmit, onSubmit, errors, di
                     filterOption={(input, option) =>
                       (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
                     }
-                    options={[{ value: "some", label: "Mariam" }]}
+                    options={data}
                   />
                   {error?.message && <p className="invalid">{error.message}</p>}
                 </>

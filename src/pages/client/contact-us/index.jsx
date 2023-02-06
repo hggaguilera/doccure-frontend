@@ -1,9 +1,51 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import FeatherIcon from "feather-icons-react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import emailjs from "@emailjs/browser";
 import Layout from "../../../components/layout/client";
+import ContactForm from "../../../components/forms/contact";
+
+// Validations
+import { contactUsSchema } from "../../../libs/schemas";
+
+import "./index.css";
 
 function ContactUs() {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    clearErrors,
+    setValue,
+    formState: { errors, isValid },
+  } = useForm({
+    resolver: yupResolver(contactUsSchema),
+  });
+
+  const serviceId = import.meta.env.VITE_SERVICE_ID;
+  const templateId = import.meta.env.VITE_TEMPLATE_ID;
+  const userId = import.meta.env.VITE_PUBLIC_KEY;
+
+  const resetForm = () => {
+    reset();
+    clearErrors();
+  };
+
+  const onSubmit = (data) => {
+    console.log(data);
+    emailjs.send(serviceId, templateId, data, userId).then(
+      (res) => {
+        console.log(res.text);
+        resetForm();
+      },
+      (error) => {
+        console.log(error.text);
+      },
+    );
+  };
+
   return (
     <Layout>
       <div className="content-page">
@@ -31,10 +73,6 @@ function ContactUs() {
             <div className="row mb-5">
               <div className="col-md-12 text-center">
                 <h3 className="mb-4">Contáctanos</h3>
-                <p>
-                  Great doctor if you need your family member to get effective immediate assistance,
-                  emergency treatment or a simple consultation.
-                </p>
               </div>
             </div>
             <div className="row">
@@ -46,8 +84,10 @@ function ContactUs() {
                     </div>
                   </div>
                   <div className="infor-details text-center">
-                    <label>Número de Teléfono</label>
-                    <p>+152 534-468-854</p>
+                    <p className="label">Número de Teléfono</p>
+                    <p>
+                      <a href="tel:+50522222222">2222-2222</a>
+                    </p>
                   </div>
                 </div>
               </div>
@@ -59,8 +99,10 @@ function ContactUs() {
                     </div>
                   </div>
                   <div className="infor-details text-center">
-                    <label>Email</label>
-                    <p>contact@example.com</p>
+                    <p className="label">Email</p>
+                    <p>
+                      <a href="mailto:contacto@msdental.com">contacto@msdental.com</a>
+                    </p>
                   </div>
                 </div>
               </div>
@@ -72,8 +114,8 @@ function ContactUs() {
                     </div>
                   </div>
                   <div className="infor-details text-center">
-                    <label>Ubicación</label>
-                    <p>C/54 Northwest Freeway, Suite 558, Houston, USA 485</p>
+                    <p className="label">Ubicación</p>
+                    <p>Costado Oeste de La Virgen del Camino, Salida de Chinandega</p>
                   </div>
                 </div>
               </div>
@@ -87,46 +129,14 @@ function ContactUs() {
             </div>
             <div className="row">
               <div className="col-md-12">
-                <form action="">
-                  <div className="row">
-                    <div className="col-md-6">
-                      <div className="form-group">
-                        <label>
-                          Nombre <span>*</span>
-                        </label>
-                        <input type="text" className="form-control" />
-                      </div>
-                    </div>
-                    <div className="col-md-6">
-                      <div className="form-group">
-                        <label>
-                          Email <span>*</span>
-                        </label>
-                        <input type="text" className="form-control" />
-                      </div>
-                    </div>
-                    <div className="col-md-12">
-                      <div className="form-group">
-                        <label>Asunto</label>
-                        <input type="text" className="form-control" />
-                      </div>
-                    </div>
-                    <div className="col-md-12">
-                      <div className="form-group">
-                        <label>
-                          Comentarios <span>*</span>
-                        </label>
-                        <textarea
-                          className="form-control"
-                          defaultValue={"\n\t\t\t\t\t\t\t\t\t\t\t"}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <button type="button" className="btn bg-primary">
-                    Enviar Mensaje
-                  </button>
-                </form>
+                <ContactForm
+                  register={register}
+                  handleSubmit={handleSubmit}
+                  onSubmit={onSubmit}
+                  setValue={setValue}
+                  errors={errors}
+                  disabled={!isValid}
+                />
               </div>
             </div>
           </div>

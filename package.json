@@ -11,7 +11,10 @@
     "lint:fix": "prettier --write . && eslint --fix ."
   },
   "dependencies": {
+    "@ant-design/icons": "^5.0.1",
+    "@emailjs/browser": "^3.10.0",
     "@hookform/resolvers": "^2.9.10",
+    "@reduxjs/toolkit": "^1.9.2",
     "antd": "^5.1.5",
     "bootstrap": "^5.2.3",
     "feather-icons-react": "^0.6.2",
@@ -21,6 +24,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.42.1",
     "react-intl-tel-input": "^8.2.0",
+    "react-redux": "^8.0.5",
     "react-router-dom": "6.3.0",
     "react-slick": "0.27.1",
     "slick-carousel": "1.8.1",

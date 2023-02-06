@@ -1,0 +1,17 @@
+{
+  "laiz.medina@msdental.com": {
+    "profilePic": "src/assets/images/laiz_medina.jpg"
+  },
+  "erick.collado@msdental.com": {
+    "profilePic": "src/assets/images/erick_collado.jpg"
+  },
+  "norma.fuentes@msdental.com": {
+    "profilePic": "src/assets/images/norma_fuentes.jpg"
+  },
+  "josue.munguia@msdental.com": {
+    "profilePic": "src/assets/images/josue_munguia.jpg"
+  },
+  "marian.somarriba@msdental.com": {
+    "profilePic": "src/assets/images/marian_somarriba.jpg"
+  }
+}

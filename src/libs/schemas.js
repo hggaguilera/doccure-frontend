@@ -8,3 +8,10 @@ export const bookAppointmentSchema = yup.object().shape({
   date: yup.string().required("Especifique una Fecha"),
   time: yup.string().required("Especifique una Hora"),
 });
+
+export const contactUsSchema = yup.object().shape({
+  from_name: yup.string().required("Escriba su nombre"),
+  reply_to: yup.string().email().required("Escriba su email"),
+  subject: yup.string(),
+  comments: yup.string().required("Escriba su consulta o comentario"),
+});
