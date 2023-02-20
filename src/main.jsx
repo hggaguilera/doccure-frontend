@@ -16,6 +16,8 @@ import "react-intl-tel-input/dist/main.css";
 // Bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
+// Mapbox
+import "mapbox-gl/dist/mapbox-gl.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

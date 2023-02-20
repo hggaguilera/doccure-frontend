@@ -50,7 +50,7 @@ function OurDoctors({ doctors }) {
                   const { prefix, firstName, lastName, specializations, email } = doctor;
 
                   return (
-                    <div className="profile-widget">
+                    <div key={email} className="profile-widget">
                       <div className="doc-img">
                         <img
                           className="img-fluid"

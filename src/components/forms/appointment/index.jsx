@@ -3,6 +3,7 @@ import React from "react";
 import { Controller } from "react-hook-form";
 import IntlTelInput from "react-intl-tel-input";
 import { DatePicker, TimePicker, Select } from "antd";
+import moment from "moment";
 import Input from "./input";
 
 import "./index.css";
@@ -17,14 +18,13 @@ function AppointmentForm({ data, register, control, handleSubmit, onSubmit, erro
     return result;
   };
 
-  const disabledDateTime = () => ({
+  const disabledTime = () => ({
     disabledHours: () => [...range(0, 8), ...range(17, 24)],
   });
 
-  // const disabledDate = (current) => {
-  //   const now = moment().format("HH:mm a");
-  //   return current >= moment(now, "HH:mm a").isAfter(moment().set("hour", 16));
-  // };
+  const disabledDate = (current) => {
+    return moment().add(-1, "days") >= current;
+  };
 
   return (
     <form className="row" onSubmit={handleSubmit(onSubmit)}>
@@ -35,6 +35,7 @@ function AppointmentForm({ data, register, control, handleSubmit, onSubmit, erro
             label="Nombre"
             type="text"
             register={register}
+            placeholder="Escriba su nombre"
             error={errors?.patientName?.message}
           />
         </div>
@@ -45,6 +46,7 @@ function AppointmentForm({ data, register, control, handleSubmit, onSubmit, erro
             name="email"
             label="Email"
             type="email"
+            placeholder="ej. jane.doe@mail.com"
             register={register}
             error={errors?.email?.message}
           />
@@ -52,9 +54,9 @@ function AppointmentForm({ data, register, control, handleSubmit, onSubmit, erro
       </div>
       <div className="col-12 col-md-6 col-lg-4">
         <div className="form-group">
-          <label htmlFor="phoneNumber">Numero de Telefono</label>
+          <label htmlFor="phone">Numero de Telefono</label>
           <Controller
-            name="phoneNumber"
+            name="phone"
             control={control}
             render={({ field: { onChange }, fieldState: { error } }) => {
               return (
@@ -63,12 +65,15 @@ function AppointmentForm({ data, register, control, handleSubmit, onSubmit, erro
                     containerClassName={
                       error?.message ? "intl-tel-input input-error" : "intl-tel-input"
                     }
-                    fieldId="phoneNumber"
-                    fieldName="phoneNumber"
+                    fieldId="phone"
+                    fieldName="phone"
+                    placeholder="ej. 86433047"
                     preferredCountries={["bz", "gt", "sv", "hn", "ni", "cr", "pa"]}
                     defaultCountry="ni"
                     inputClassName="phone-number"
-                    onPhoneNumberChange={(...args) => onChange(args[3].replace(/\s|-/g, ""))}
+                    onPhoneNumberChange={(...args) =>
+                      onChange({ dialCode: args[2].dialCode, phoneNumber: args[3] })
+                    }
                     format
                   />
                   {error?.message && <p className="invalid">{error.message}</p>}
@@ -120,6 +125,7 @@ function AppointmentForm({ data, register, control, handleSubmit, onSubmit, erro
                     className={error?.message ? "input-error" : ""}
                     placeholder="Elija la Fecha"
                     showToday={false}
+                    disabledDate={disabledDate}
                     format="DD-MM-YYYY"
                   />
                   {error?.message && <p className="invalid">{error.message}</p>}
@@ -147,7 +153,7 @@ function AppointmentForm({ data, register, control, handleSubmit, onSubmit, erro
                     use12Hours
                     showNow={false}
                     minuteStep={30}
-                    disabledTime={disabledDateTime}
+                    disabledTime={disabledTime}
                   />
                   {error?.message && <p className="invalid">{error.message}</p>}
                 </>

@@ -1,6 +1,6 @@
 import React from "react";
 
-function Input({ name, label, type, register, error }) {
+function Input({ name, label, type, register, error, placeholder }) {
   return (
     <div className="form-group">
       <label htmlFor={name}>{label}</label>
@@ -8,6 +8,7 @@ function Input({ name, label, type, register, error }) {
         id={name}
         type={type}
         className={error ? "form-control input-error" : "form-control"}
+        placeholder={placeholder}
         {...register(name)}
       />
       {error && <p className="invalid">{error}</p>}

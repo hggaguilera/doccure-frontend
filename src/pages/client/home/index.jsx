@@ -11,8 +11,6 @@ import Appointment from "../../../components/appointment";
 import Loader from "../../../components/loader";
 
 function Home({ doctorsData, isLoading, error }) {
-  console.log(doctorsData);
-
   return (
     <>
       {isLoading ? <Loader /> : null}

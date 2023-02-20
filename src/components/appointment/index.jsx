@@ -1,18 +1,20 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import moment from "moment";
 import AppointmentForm from "../forms/appointment";
+import { useAddAppointmentMutation } from "../../services/appointment";
 
 // Validations
 import { bookAppointmentSchema } from "../../libs/schemas";
-import { doctorsFormattedData } from "../../libs/helpers";
+import { buildAppointmentPayload, doctorsFormattedData } from "../../libs/helpers";
 
 function Appointment({ doctors }) {
+  const [addAppointment, { isLoading }] = useAddAppointmentMutation();
   const {
     register,
     control,
     handleSubmit,
+    reset,
     formState: { errors, isValid },
   } = useForm({
     resolver: yupResolver(bookAppointmentSchema),
@@ -21,11 +23,12 @@ function Appointment({ doctors }) {
   const formattedData = doctorsFormattedData(doctors);
 
   const onSubmit = (data) => {
-    const dt = {
-      date: moment(data.date).format("MM-DD-YYYY"),
-      time: moment(data.time, "HH:mm:ss"),
-    };
-    console.log(dt);
+    const payload = buildAppointmentPayload(data);
+    addAppointment(payload).then((res) => {
+      console.log(res.data);
+      reset();
+    });
+    // console.log(payload);
   };
 
   return (
@@ -61,7 +64,7 @@ function Appointment({ doctors }) {
                     handleSubmit={handleSubmit}
                     onSubmit={onSubmit}
                     errors={errors}
-                    disabled={!isValid}
+                    disabled={!isValid && isLoading}
                   />
                 </div>
               </div>
