@@ -1,5 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import { Tooltip } from "bootstrap";
 import { useGetDoctorsQuery } from "./services/doctor";
 
 // Client
@@ -13,6 +14,11 @@ import Dashboard from "./pages/admin/dashboard";
 
 function App() {
   const { data, error, isLoading } = useGetDoctorsQuery();
+
+  // Tooltips
+  // eslint-disable-next-line quotes
+  const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+  [...tooltipTriggerList].map((tooltipTriggerEl) => new Tooltip(tooltipTriggerEl));
 
   return (
     <Routes>

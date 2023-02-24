@@ -71,6 +71,19 @@ form button[disabled]:hover {
 .form-group .input-error > input[type="tel"] {
   border-color: red;
 }
+.tooltip-info {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 15px;
+  height: 15px;
+  border: 1px solid #183153;
+  border-radius: 50%;
+  margin-left: 4px;
+}
+.tooltip-info .fa {
+  font-size: 10px;
+}
 
 @media (min-width: 768px) {
   form button[type="submit"] {

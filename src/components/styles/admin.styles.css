@@ -239,6 +239,13 @@ p:last-child{
     border-radius: 0;
     color: #97A2D2;
 }
+.Toastify__toast {
+  border-radius: 4px;
+}
+.Toastify__toast-body {
+  font-size: 14px;
+  line-height: normal;
+}
 
 /*-----------------
 	2. Table

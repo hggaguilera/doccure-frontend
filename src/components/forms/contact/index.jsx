@@ -2,7 +2,7 @@ import React from "react";
 import Input from "./input";
 import TextField from "./text-field";
 
-function ContactForm({ register, handleSubmit, onSubmit, errors, setValue, disabled }) {
+function ContactForm({ register, handleSubmit, onSubmit, errors, disabled }) {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="row">
@@ -42,7 +42,6 @@ function ContactForm({ register, handleSubmit, onSubmit, errors, setValue, disab
             name="comments"
             register={register}
             error={errors?.comments?.message}
-            setValue={setValue}
             isRequired
           />
         </div>

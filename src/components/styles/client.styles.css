@@ -227,7 +227,13 @@ input[type="password"] {
   max-width: 100% !important;
   padding: 0 30px;
 }
-
+.Toastify__toast {
+  border-radius: 4px;
+}
+.Toastify__toast-body {
+  font-size: 14px;
+  line-height: normal;
+}
 /*-----------------
 	2. Table
 -----------------------*/
@@ -976,6 +982,9 @@ button.bg-danger:hover {
   border-color: #bbb;
   box-shadow: none;
   outline: 0 none;
+}
+.form-control::placeholder {
+  color: #C6C6C6;
 }
 .form-group {
   margin-bottom: 1.25rem;
@@ -3628,7 +3637,9 @@ html.menu-opened body {
   -ms-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
-
+input[type="tel"].phone-number::placeholder {
+  color: #C6C6C6;
+}
 .filter-widget {
   margin-bottom: 20px;
 }

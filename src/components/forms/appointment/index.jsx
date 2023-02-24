@@ -3,7 +3,13 @@ import React from "react";
 import { Controller } from "react-hook-form";
 import IntlTelInput from "react-intl-tel-input";
 import { DatePicker, TimePicker, Select } from "antd";
-import moment from "moment";
+import dayjs from "dayjs";
+
+// Locale
+import locale from "antd/es/date-picker/locale/es_ES";
+import "dayjs/locale/es";
+
+// Custom Components
 import Input from "./input";
 
 import "./index.css";
@@ -23,7 +29,7 @@ function AppointmentForm({ data, register, control, handleSubmit, onSubmit, erro
   });
 
   const disabledDate = (current) => {
-    return moment().add(-1, "days") >= current;
+    return dayjs().add(-1, "days") >= current;
   };
 
   return (
@@ -36,6 +42,7 @@ function AppointmentForm({ data, register, control, handleSubmit, onSubmit, erro
             type="text"
             register={register}
             placeholder="Escriba su nombre"
+            tooltip="Escriba un nombre y un apellido"
             error={errors?.patientName?.message}
           />
         </div>
@@ -125,8 +132,17 @@ function AppointmentForm({ data, register, control, handleSubmit, onSubmit, erro
                     className={error?.message ? "input-error" : ""}
                     placeholder="Elija la Fecha"
                     showToday={false}
+                    showNow={false}
+                    showTime={{
+                      minuteStep: 30,
+                      showNow: false,
+                      showSecond: false,
+                      hideDisabledOptions: true,
+                    }}
                     disabledDate={disabledDate}
-                    format="DD-MM-YYYY"
+                    disabledTime={disabledTime}
+                    locale={locale}
+                    format="ddd, D [de] MMMM [a las] hh:mm A"
                   />
                   {error?.message && <p className="invalid">{error.message}</p>}
                 </>

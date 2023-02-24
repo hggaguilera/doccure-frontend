@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import Map, { Marker } from "react-map-gl";
-// import mapboxgl from "mapbox-gl";
 import FeatherIcon from "feather-icons-react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import emailjs from "@emailjs/browser";
+import { toast } from "react-toastify";
 import Layout from "../../../components/layout/client";
 import ContactForm from "../../../components/forms/contact";
 
@@ -15,16 +15,6 @@ import { contactUsSchema } from "../../../libs/schemas";
 import "./index.css";
 
 function ContactUs() {
-  // const [mapViewport] = useState({
-  //   height: "100%",
-  //   width: "100%",
-  //   longitude: -87.1493549,
-  //   latitude: 12.64470936320111,
-  //   zoom: 18,
-  // });
-  // const mapContainer = useRef(null);
-  // const map = useRef(null);
-
   const serviceId = import.meta.env.VITE_SERVICE_ID;
   const templateId = import.meta.env.VITE_TEMPLATE_ID;
   const userId = import.meta.env.VITE_PUBLIC_KEY;
@@ -35,21 +25,10 @@ function ContactUs() {
     handleSubmit,
     reset,
     clearErrors,
-    setValue,
     formState: { errors, isValid },
   } = useForm({
     resolver: yupResolver(contactUsSchema),
   });
-
-  // useEffect(() => {
-  //   if (map.current) return;
-  //   map.current = new mapboxgl.Map({
-  //     container: mapContainer.current,
-  //     style: "mapbox://styles/mapbox/outdoors-v12",
-  //     center: [-87.1493549, 12.6451734],
-  //     zoom: 18,
-  //   });
-  // }, []);
 
   const resetForm = () => {
     reset();
@@ -58,12 +37,12 @@ function ContactUs() {
 
   const onSubmit = (data) => {
     emailjs.send(serviceId, templateId, data, userId).then(
-      (res) => {
-        console.log(res.text);
+      () => {
+        toast.success("Tu mensaje a sido enviado con éxito");
         resetForm();
       },
-      (error) => {
-        console.log(error.text);
+      () => {
+        toast.error("Ha ocurrido un error al momento de enviar su mensaje, intentelo nuevamente");
       },
     );
   };
@@ -155,7 +134,6 @@ function ContactUs() {
                   register={register}
                   handleSubmit={handleSubmit}
                   onSubmit={onSubmit}
-                  setValue={setValue}
                   errors={errors}
                   disabled={!isValid}
                 />
@@ -181,13 +159,6 @@ function ContactUs() {
               </div>
             </Marker>
           </Map>
-          {/* <div ref={mapContainer} className="map-container" /> */}
-          {/* <iframe
-            title="maps"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3459.716346058072!2d-95.5565430855612!3d29.872453233633234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8640cfe4516785ed%3A0x774974592a609121!2s54%20Northwest%20Fwy%20%23558%2C%20Houston%2C%20TX%2077040%2C%20USA!5e0!3m2!1sen!2sin!4v1631855334452!5m2!1sen!2sin"
-            allowFullScreen=""
-            loading="lazy"
-          /> */}
         </section>
       </div>
     </Layout>
