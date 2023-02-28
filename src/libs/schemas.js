@@ -8,8 +8,8 @@ export const bookAppointmentSchema = yup.object().shape({
     .shape({ dialCode: yup.string(), phoneNumber: yup.string() })
     .required("Ingrese un numero de telefono valido"),
   doctorName: yup.string().required("Elija a un Doctor"),
+  service: yup.string().required("Especifique el Servicio"),
   date: yup.string().required("Especifique una Fecha"),
-  time: yup.string().required("Especifique una Hora"),
 });
 
 export const contactUsSchema = yup.object().shape({

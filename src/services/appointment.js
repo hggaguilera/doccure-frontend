@@ -10,7 +10,8 @@ export const appointmentApi = createApi({
       query: (body) => ({ url: "/appointment", method: "POST", body }),
       invalidatesTags: ["Post"],
     }),
+    getAppointments: builder.query({ query: () => "/appointments" }),
   }),
 });
 
-export const { useAddAppointmentMutation } = appointmentApi;
+export const { useAddAppointmentMutation, useGetAppointmentsQuery } = appointmentApi;

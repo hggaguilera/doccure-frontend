@@ -1,12 +1,17 @@
-import moment from "moment";
+import dayjs from "dayjs";
 
 function doctorsFormattedData(data) {
-  return data?.map((item) => {
-    return {
-      value: item.id,
-      label: `${item.firstName} ${item.lastName}`,
-    };
-  });
+  return data?.map((item) => ({
+    value: item.id,
+    label: `${item.firstName} ${item.lastName}`,
+  }));
+}
+
+function servicesFormattedData(data) {
+  return data?.map((item) => ({
+    value: item.id,
+    label: item.serviceName,
+  }));
 }
 
 /**
@@ -24,10 +29,10 @@ function getDateTimeFromDateAndTime(date, time) {
     throw new Error("Could not get datetime. Time params was not provided");
   }
 
-  const dateObj = moment(date).format("YYYY-MM-DD");
-  const timeObj = moment(time).format("HH:mm:ss");
+  const dateObj = dayjs(date).format("YYYY-MM-DD");
+  const timeObj = dayjs(time).format("HH:mm:ss");
 
-  return moment(`${dateObj} ${timeObj}`, "YYYY-MM-DD HH:mm:ss Z");
+  return dayjs(`${dateObj} ${timeObj}`, "YYYY-MM-DD HH:mm:ss Z");
 }
 
 function buildAppointmentPayload(data) {
@@ -37,8 +42,14 @@ function buildAppointmentPayload(data) {
     countryCode: `+${data.phone.dialCode}`,
     phoneNumber: data.phone.phoneNumber,
     doctor: data.doctorName,
-    date: getDateTimeFromDateAndTime(data.date, data.time),
+    service: data.service,
+    date: dayjs(data.date).set("seconds", 0).set("milliseconds", 0).format("YYYY-MM-DD HH:mm:ss Z"),
   };
 }
 
-export { doctorsFormattedData, getDateTimeFromDateAndTime, buildAppointmentPayload };
+export {
+  doctorsFormattedData,
+  servicesFormattedData,
+  getDateTimeFromDateAndTime,
+  buildAppointmentPayload,
+};

@@ -2,36 +2,40 @@
 import React from "react";
 import Slider from "react-slick";
 
+import { useGetDoctorsQuery } from "../../services/doctor";
+
 import profiles from "../../libs/doctors.json";
 
-function OurDoctors({ doctors }) {
-  const settings = {
-    dots: false,
-    autoplay: false,
-    infinite: true,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    responsive: [
-      {
-        breakpoint: 992,
-        settings: {
-          slidesToShow: 3,
-        },
+const settings = {
+  dots: false,
+  autoplay: false,
+  infinite: true,
+  slidesToShow: 4,
+  slidesToScroll: 1,
+  responsive: [
+    {
+      breakpoint: 992,
+      settings: {
+        slidesToShow: 3,
       },
-      {
-        breakpoint: 776,
-        settings: {
-          slidesToShow: 2,
-        },
+    },
+    {
+      breakpoint: 776,
+      settings: {
+        slidesToShow: 2,
       },
-      {
-        breakpoint: 567,
-        settings: {
-          slidesToShow: 1,
-        },
+    },
+    {
+      breakpoint: 567,
+      settings: {
+        slidesToShow: 1,
       },
-    ],
-  };
+    },
+  ],
+};
+
+function OurDoctors() {
+  const { data } = useGetDoctorsQuery();
 
   return (
     <section id="our-doctors" className="doctors-col">
@@ -46,7 +50,7 @@ function OurDoctors({ doctors }) {
           <div className="col-lg-12">
             <div className="doctor-slider slider slick-initialized slick-slider">
               <Slider {...settings}>
-                {doctors?.map((doctor) => {
+                {data?.map((doctor) => {
                   const { prefix, firstName, lastName, specializations, email } = doctor;
 
                   return (

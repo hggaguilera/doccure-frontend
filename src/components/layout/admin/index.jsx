@@ -17,7 +17,7 @@ function Layout({ pageTitle, mainPage, mainPageUrl, currentPage, children }) {
                 <ul className="breadcrumb">
                   {mainPage ? (
                     <li className="breadcrumb-item">
-                      <Link to={mainPageUrl}>mainPage</Link>
+                      <Link to={mainPageUrl}>{mainPage}</Link>
                     </li>
                   ) : null}
                   <li className="breadcrumb-item active">{currentPage}</li>
