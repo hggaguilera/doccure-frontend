@@ -6,6 +6,9 @@ import { viteCommonjs } from "@originjs/vite-plugin-commonjs";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), viteCommonjs()],
+  server: {
+    open: true,
+  },
   // optimizeDeps: {
   //   esbuildOptions: {
   //     plugins: [vitePluginRequire()],

@@ -1,17 +1,22 @@
 {
   "laiz.medina@msdental.com": {
-    "profilePic": "src/assets/images/laiz_medina.jpg"
+    "profile": "/src/assets/images/doctors/laiz_medina.jpg",
+    "thumb": "/src/assets/images/doctors/laiz_thumb.jpg"
   },
   "erick.collado@msdental.com": {
-    "profilePic": "src/assets/images/erick_collado.jpg"
+    "profile": "/src/assets/images/doctors/erick_collado.jpg",
+    "thumb": "/src/assets/images/doctors/erick_thumb.jpg"
   },
   "norma.fuentes@msdental.com": {
-    "profilePic": "src/assets/images/norma_fuentes.jpg"
+    "profile": "/src/assets/images/doctors/norma_fuentes.jpg",
+    "thumb": "/src/assets/images/doctors/norma_thumb.jpg"
   },
   "josue.munguia@msdental.com": {
-    "profilePic": "src/assets/images/josue_munguia.jpg"
+    "profile": "/src/assets/images/doctors/josue_munguia.jpg",
+    "thumb": "/src/assets/images/doctors/josue_thumb.jpg"
   },
   "marian.somarriba@msdental.com": {
-    "profilePic": "src/assets/images/marian_somarriba.jpg"
+    "profile": "/src/assets/images/doctors/marian_somarriba.jpg",
+    "thumb": "/src/assets/images/doctors/marian_thumb.jpg"
   }
 }

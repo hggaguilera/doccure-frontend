@@ -59,7 +59,7 @@ function OurDoctors() {
                         <img
                           className="img-fluid"
                           alt={`foto de ${prefix} ${firstName} ${lastName}`}
-                          src={profiles[email].profilePic}
+                          src={profiles[email].profile}
                         />
                       </div>
                       <div className="pro-content">

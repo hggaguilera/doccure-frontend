@@ -17,9 +17,9 @@ function Appointments() {
       title: "Nombre del Doctor",
       dataIndex: "doctor",
       render: (text, record) => (
-        <h2 className="table-avatar">
+        <h2 className="table-avatar mb-0">
           <Link to="/admin/profile" className="avatar avatar-sm me-2">
-            <img alt={`foto de ${text}`} src={profiles[record.doctorEmail].profilePic} />
+            <img alt={`foto de ${text}`} src={profiles[record.doctorEmail].thumb} />
           </Link>
           <Link to="/admin/profile">{text}</Link>
         </h2>
@@ -37,6 +37,7 @@ function Appointments() {
       title: "Fecha",
       dataIndex: "date",
       render: (text) => dayjs(text).format("DD/MM/YYYY"),
+      sorter: (a, b) => dayjs(a.date) - dayjs(b.date),
     },
     {
       title: "Estado",
