@@ -11,9 +11,9 @@ function Banner() {
             <h6>Trabajamos para encargarnos de tu sonrisa</h6>
             <h1>¡Gran sonrisa para un estilo de vida saludable!</h1>
             <p>
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-              laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-              architecto beatae vitae dicta sunt explicabo
+              En nuestra clínica dental, nos enorgullecemos de ofrecer servicios de alta calidad a
+              nuestros pacientes. Nuestro equipo de profesionales altamente capacitados y
+              experimentados está dedicado a proporcionar el mejor cuidado dental posible.
             </p>
             <a href="#appointment" className="btn-yellow">
               Agendar Cita

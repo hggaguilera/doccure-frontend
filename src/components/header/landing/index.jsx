@@ -24,12 +24,13 @@ function Header() {
                   <li>
                     <span>
                       <i className="fas fa-phone-alt" /> Numero de Contacto:{" "}
-                      <a href="tel:+50522222222">+505 2222-2222</a>
+                      <a href="tel:+50525336545">+505 2533-6545</a>
                     </span>
                   </li>
                   <li>
                     <span>
-                      <i className="fas fa-map-marker-alt" /> Locacion: 22, South Wales, New York
+                      <i className="fas fa-map-marker-alt" /> Ubicación: Costado Oeste de La Virgen
+                      del Camino, Salida de Chinandega
                     </span>
                   </li>
                 </ul>

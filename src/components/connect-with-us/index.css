@@ -1,3 +1,6 @@
+.feature-section {
+  padding: 60px 0 30px !important;
+}
 .feature-column {
   justify-content: center;
 }

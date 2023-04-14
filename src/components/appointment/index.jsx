@@ -66,10 +66,10 @@ function Appointment() {
                 <h6>Citas</h6>
                 <h2 className="text-white">Agenda un Cita</h2>
                 <p className="text-white">
-                  Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-                  doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore
-                  veritatis et quasi architecto beatae vitae dicta sunt explicabo, sed ut
-                  perspiciatis unde omnis iste natus error sit voluptatem accusantium.
+                  Nuestro equipo de profesionales altamente capacitados y experimentados está
+                  dedicado a proporcionar el mejor cuidado dental posible. En nuestra clínica, nos
+                  tomamos el tiempo para conocer a cada paciente y entender sus necesidades
+                  individuales para brindarles un tratamiento personalizado.
                 </p>
               </div>
             </div>

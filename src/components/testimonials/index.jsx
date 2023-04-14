@@ -2,6 +2,11 @@
 import React from "react";
 import Slider from "react-slick";
 
+// Images
+import PatientOne from "../../assets/images/patients/juan_tercero.jpg";
+import PatientTwo from "../../assets/images/patients/daniela_quezada.jpg";
+import PatientThree from "../../assets/images/patients/grace_rivera.jpg";
+
 import "./index.css";
 
 function Testimonials() {
@@ -45,19 +50,10 @@ function Testimonials() {
                         <h6>Historias de nuestros pacientes</h6>
                         <h2>Testimonios</h2>
                         <p>
-                          Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-                          doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo
-                          inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo,
-                          sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                          accusantium.
-                        </p>
-                        <p>
-                          Doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inve
-                          ntore veritatis et quasi architecto beatae vitae dicta sunt explicabo Sed
-                          ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-                          dolo remque la udantium, totam rem aperiam, eaque ipsa quae ab illo
-                          inventore veritatis et quasi architecto beatae vitae dicta sunt e
-                          xplicabo.
+                          Mi experiencia en la clínica ha sido excelente. Desde el primer momento me
+                          hicieron sentir cómodo y me explicaron todo el proceso con claridad. La
+                          limpieza dental fue rápida y sin dolor, y los resultados son notables.
+                          Definitivamente recomendaría la clínica a mis amigos y familiares.
                         </p>
                       </div>
                     </div>
@@ -65,10 +61,9 @@ function Testimonials() {
                       <div className="testimonial-profile text-center">
                         <div>
                           <div className="profile-icon">
-                            <img src="" alt="patient name" />
+                            <img src={PatientOne} alt="Juan Carlos Tercero" />
                           </div>
-                          <h4>Jillan Smith</h4>
-                          <span>Business Organiser</span>
+                          <h4>Juan Carlos Tercero</h4>
                         </div>
                       </div>
                     </div>
@@ -79,22 +74,13 @@ function Testimonials() {
                   <div className="row">
                     <div className="col-12 col-lg-9">
                       <div className="left">
-                        <h6>Our Patient’s Stories</h6>
-                        <h2>Testimonials</h2>
+                        <h6>Historias de nuestros pacientes</h6>
+                        <h2>Testimonios</h2>
                         <p>
-                          Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-                          doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo
-                          inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo,
-                          sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                          accusantium.
-                        </p>
-                        <p>
-                          Doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inve
-                          ntore veritatis et quasi architecto beatae vitae dicta sunt explicabo Sed
-                          ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-                          dolo remque la udantium, totam rem aperiam, eaque ipsa quae ab illo
-                          inventore veritatis et quasi architecto beatae vitae dicta sunt e
-                          xplicabo.
+                          El visitar la clínica ha sido una gran ayuda para mi salud bucal. Había
+                          estado lidiando con un dolor de muelas por semanas, pero después de
+                          visitar la clínica, el problema se resolvió rápidamente y sin problemas.
+                          El personal fue muy amable y servicial durante todo el proceso
                         </p>
                       </div>
                     </div>
@@ -102,10 +88,9 @@ function Testimonials() {
                       <div className="testimonial-profile text-center">
                         <div>
                           <div className="profile-icon">
-                            <img src="" alt="patient name" />
+                            <img src={PatientTwo} alt="Daniela Quezada" />
                           </div>
-                          <h4>Jillan Smith</h4>
-                          <span>Business Organiser</span>
+                          <h4>Daniela Quezada</h4>
                         </div>
                       </div>
                     </div>
@@ -116,22 +101,13 @@ function Testimonials() {
                   <div className="row">
                     <div className="col-12 col-lg-9">
                       <div className="left">
-                        <h6>Our Patient’s Stories</h6>
-                        <h2>Testimonials</h2>
+                        <h6>Historias de nuestros pacientes</h6>
+                        <h2>Testimonios</h2>
                         <p>
-                          Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-                          doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo
-                          inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo,
-                          sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                          accusantium.
-                        </p>
-                        <p>
-                          Doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inve
-                          ntore veritatis et quasi architecto beatae vitae dicta sunt explicabo Sed
-                          ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-                          dolo remque la udantium, totam rem aperiam, eaque ipsa quae ab illo
-                          inventore veritatis et quasi architecto beatae vitae dicta sunt e
-                          xplicabo.
+                          Visitar la clínica fue una de las mejores decisiones que he tomado para mi
+                          salud dental. El personal fue muy profesional y eficiente, y me sentí muy
+                          cómodo durante todo el proceso. La atención personalizada que recibí
+                          realmente me hizo sentir como si estuviera en buenas manos.
                         </p>
                       </div>
                     </div>
@@ -139,10 +115,9 @@ function Testimonials() {
                       <div className="testimonial-profile text-center">
                         <div>
                           <div className="profile-icon">
-                            <img src="" alt="patient name" />
+                            <img src={PatientThree} alt="Grace Rivera" />
                           </div>
-                          <h4>Jillan Smith</h4>
-                          <span>Business Organiser</span>
+                          <h4>Grace Rivera</h4>
                         </div>
                       </div>
                     </div>

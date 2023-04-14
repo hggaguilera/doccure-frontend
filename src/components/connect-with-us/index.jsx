@@ -19,10 +19,10 @@ function ConnectWithUs() {
           <div className="col-12 col-md-6">
             <div className="right">
               <p>
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-                laudantium, totam rem aperiam, eaque ipsa quae ab illo inve ntore veritatis et quasi
-                architecto beatae vitae dicta sunt explicabo, sed ut perspiciatis unde omnis iste
-                natus error.
+                Nos esforzamos por mantenernos actualizados con las últimas técnicas y tecnologías
+                dentales para garantizar que nuestros pacientes reciban los mejores servicios
+                posibles. En nuestra clínica, nos tomamos el tiempo para conocer a cada paciente y
+                entender sus necesidades individuales para brindarles un tratamiento personalizado.
               </p>
               <a href="#appointment" className="btn-yellow">
                 Agendar Cita

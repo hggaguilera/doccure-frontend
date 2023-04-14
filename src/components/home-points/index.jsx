@@ -12,10 +12,11 @@ function HomePoints() {
                   <div className="service-icon">
                     <img src="" alt="cosmetic dentistry" />
                   </div>
-                  <h3>Odontología Cosmetica</h3>
+                  <h3>Blanqueamiento Dental</h3>
                   <p>
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-                    dolore ue laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore.
+                    Nuestro tratamiento de blanqueamiento dental utiliza los mejores productos
+                    disponibles en el mercado y la tecnología más avanzada para garantizar que tus
+                    dientes se vean más blancos y brillantes que nunca.
                   </p>
                 </div>
               </div>
@@ -28,10 +29,11 @@ function HomePoints() {
                   <div className="service-icon">
                     <img src="" alt="quick examination" />
                   </div>
-                  <h3>Examinación Rápida</h3>
+                  <h3>Implantes Dentales</h3>
                   <p>
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium mque
-                    laudantium, totam rem aperiam, eaque ipsa error sit voluptatem.
+                    Los implantes dentales son una excelente solución para reemplazar uno o varios
+                    dientes perdidos. En nuestra clínica dental, ofrecemos implantes dentales de
+                    alta calidad que son seguros y duraderos.
                   </p>
                 </div>
               </div>
@@ -44,10 +46,11 @@ function HomePoints() {
                   <div className="service-icon">
                     <img src="" alt="best care" />
                   </div>
-                  <h3>El Mejor Cuidado</h3>
+                  <h3>Ortodoncia</h3>
                   <p>
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium lauda
-                    ntium, totam rem aperiam, eaque ipsa quae ab illo iste natus.
+                    En nuestra clínica dental, ofrecemos una variedad de opciones de ortodoncia,
+                    incluyendo brackets tradicionales y alineadores transparentes. Nos aseguramos de
+                    que tus dientes queden bien alineados para que puedas sonreír con confianza.
                   </p>
                 </div>
               </div>
