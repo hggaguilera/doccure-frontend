@@ -30,9 +30,9 @@ function getDateTimeFromDateAndTime(date, time) {
   }
 
   const dateObj = dayjs(date).format("YYYY-MM-DD");
-  const timeObj = dayjs(time).format("HH:mm:ss");
+  const timeObj = dayjs(time).set("seconds", 0).set("milliseconds", 0).format("HH:mm:ss");
 
-  return dayjs(`${dateObj} ${timeObj}`, "YYYY-MM-DD HH:mm:ss Z");
+  return dayjs(`${dateObj} ${timeObj}`).format("YYYY-MM-DD HH:mm:ss Z");
 }
 
 function buildAppointmentPayload(data) {
@@ -43,7 +43,7 @@ function buildAppointmentPayload(data) {
     phoneNumber: data.phone.phoneNumber,
     doctor: data.doctorName,
     service: data.service,
-    date: dayjs(data.date).set("seconds", 0).set("milliseconds", 0).format("YYYY-MM-DD HH:mm:ss Z"),
+    date: getDateTimeFromDateAndTime(data.date, data.time),
   };
 }
 

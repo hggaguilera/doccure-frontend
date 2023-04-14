@@ -1,13 +1,16 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from "react";
+import React, { useState } from "react";
 import { Controller } from "react-hook-form";
 import IntlTelInput from "react-intl-tel-input";
-import { DatePicker, Select } from "antd";
+import { DatePicker, Select, TimePicker } from "antd";
 import dayjs from "dayjs";
 
 // Locale
 import locale from "antd/es/date-picker/locale/es_ES";
 import "dayjs/locale/es";
+
+// Store
+import { useGetAppointmentsQuery } from "../../../services/appointment";
 
 // Custom Components
 import Input from "./input";
@@ -24,6 +27,10 @@ function AppointmentForm({
   errors,
   disabled,
 }) {
+  const [selectedDoctor, setSelectedDoctor] = useState();
+  const [disabledHours, setDisabledHours] = useState([]);
+  const { data } = useGetAppointmentsQuery();
+
   const range = (start, end) => {
     const result = [];
     // eslint-disable-next-line no-plusplus
@@ -33,9 +40,11 @@ function AppointmentForm({
     return result;
   };
 
-  const disabledTime = () => ({
-    disabledHours: () => [...range(0, 8), ...range(17, 24)],
-  });
+  const disabledTime = () => {
+    return {
+      disabledHours: () => [...range(0, 8), ...range(17, 24), ...disabledHours],
+    };
+  };
 
   const disabledDate = (current) => {
     return dayjs().add(-1, "days") >= current;
@@ -100,7 +109,7 @@ function AppointmentForm({
         </div>
       </div>
 
-      <div className="col-12 col-md-6 col-lg-4">
+      <div className="col-12 col-md-6 col-lg-3">
         <div className="form-group">
           <label htmlFor="doctorName">Doctor</label>
           <Controller
@@ -113,6 +122,10 @@ function AppointmentForm({
                     {...field}
                     className={error?.message ? "input-error" : ""}
                     showSearch
+                    onChange={(val, opt) => {
+                      field.onChange(val);
+                      setSelectedDoctor(opt.label);
+                    }}
                     placeholder="Seleccione un Doctor"
                     optionFilterProp="children"
                     filterOption={(input, option) =>
@@ -127,7 +140,7 @@ function AppointmentForm({
           />
         </div>
       </div>
-      <div className="col-12 col-md-6 col-lg-4">
+      <div className="col-12 col-md-6 col-lg-3">
         <div className="form-group mb-0">
           <label htmlFor="service">Servicio</label>
           <Controller
@@ -154,7 +167,7 @@ function AppointmentForm({
           />
         </div>
       </div>
-      <div className="col-12 col-md-6 col-lg-4">
+      <div className="col-12 col-md-6 col-lg-3">
         <div className="form-group mb-0">
           <label htmlFor="date">Fecha</label>
           <Controller
@@ -169,16 +182,27 @@ function AppointmentForm({
                     placeholder="Elija la Fecha"
                     showToday={false}
                     showNow={false}
-                    showTime={{
-                      minuteStep: 30,
-                      showNow: false,
-                      showSecond: false,
-                      hideDisabledOptions: true,
+                    showTime={false}
+                    onChange={(val) => {
+                      field.onChange(val);
+                      const selectedDate = dayjs(val).toString();
+                      const hours = selectedDoctor
+                        ? data
+                            .filter(
+                              (appt) =>
+                                appt.doctor === selectedDoctor &&
+                                dayjs(selectedDate).isSame(appt.date, "day"),
+                            )
+                            .map((rec) => {
+                              const formattedDate = new Date(rec.date).toLocaleString();
+                              return dayjs(formattedDate).get("hour");
+                            })
+                        : [];
+                      setDisabledHours(hours);
                     }}
                     disabledDate={disabledDate}
-                    disabledTime={disabledTime}
                     locale={locale}
-                    format="ddd, D [de] MMMM [a las] hh:mm A"
+                    format="ddd, D [de] MMMM"
                   />
                   {error?.message && <p className="invalid">{error.message}</p>}
                 </>
@@ -187,7 +211,35 @@ function AppointmentForm({
           />
         </div>
       </div>
-      <div className="col-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4">
+      <div className="col-12 col-md-6 col-lg-3">
+        <div className="form-group mb-0">
+          <label htmlFor="time">Hora</label>
+          <Controller
+            name="time"
+            control={control}
+            render={({ field, fieldState: { error } }) => {
+              return (
+                <>
+                  <TimePicker
+                    {...field}
+                    className={error?.message ? "input-error" : ""}
+                    placeholder="Elija la Hora"
+                    showNow={false}
+                    showMinute={false}
+                    minuteStep={60}
+                    hideDisabledOptions
+                    disabledTime={disabledTime}
+                    locale={locale}
+                    format="hh:mm A"
+                  />
+                  {error?.message && <p className="invalid">{error.message}</p>}
+                </>
+              );
+            }}
+          />
+        </div>
+      </div>
+      <div className="col-12 col-md-6 col-lg-4 offset-lg-4">
         <button type="submit" className="btn-yellow" disabled={disabled}>
           Agendar Cita
         </button>

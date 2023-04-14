@@ -10,6 +10,7 @@ export const bookAppointmentSchema = yup.object().shape({
   doctorName: yup.string().required("Elija a un Doctor"),
   service: yup.string().required("Especifique el Servicio"),
   date: yup.string().required("Especifique una Fecha"),
+  time: yup.string().required("Especifique la Hora"),
 });
 
 export const contactUsSchema = yup.object().shape({
