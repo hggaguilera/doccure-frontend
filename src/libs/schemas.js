@@ -19,3 +19,11 @@ export const contactUsSchema = yup.object().shape({
   subject: yup.string(),
   comments: yup.string().required("Escriba su consulta o comentario"),
 });
+
+export const loginSchema = yup.object().shape({
+  username: yup
+    .string()
+    .email()
+    .required("Escriba su correo electronico para poder acceder al sistema"),
+  password: yup.string().required("Escriba su contraseña para poder acceder al sistema"),
+});

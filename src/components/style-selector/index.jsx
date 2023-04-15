@@ -10,7 +10,7 @@ function StyleSelector({ children }) {
   useEffect(() => {
     const clientRoutes = ["/", "/contact-us", "/terms", "/privacy-policy"];
 
-    if (window.location.pathname.includes("admin")) {
+    if (window.location.pathname.includes("admin") || window.location.pathname.includes("auth")) {
       setPageUrl("admin");
     } else if (clientRoutes.includes(window.location.pathname)) {
       setPageUrl("client");

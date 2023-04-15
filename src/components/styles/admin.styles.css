@@ -3617,7 +3617,7 @@ html.menu-opened body {
 	15. Login
 -----------------------*/
 .login-bg {
-	background-image: url('../images/login-bg.jpg');
+	background-image: url('../../assets/images/login-bg.jpg');
 	background-size: cover;
 	top: 0;
     left: 0;	
