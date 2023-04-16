@@ -1,4 +1,7 @@
 import React from "react";
+import TeethWhitening from "@/assets/images/teeth-whitening.jpeg";
+import DentalImplants from "@/assets/images/dental-implants.jpeg";
+import Orthodontics from "@/assets/images/orthodontics.jpeg";
 
 function HomePoints() {
   return (
@@ -10,7 +13,7 @@ function HomePoints() {
               <div className="card">
                 <div className="card-body">
                   <div className="service-icon">
-                    <img src="" alt="cosmetic dentistry" />
+                    <img src={TeethWhitening} alt="cosmetic dentistry" />
                   </div>
                   <h3>Blanqueamiento Dental</h3>
                   <p>
@@ -27,7 +30,7 @@ function HomePoints() {
               <div className="card">
                 <div className="card-body">
                   <div className="service-icon">
-                    <img src="" alt="quick examination" />
+                    <img src={DentalImplants} alt="quick examination" />
                   </div>
                   <h3>Implantes Dentales</h3>
                   <p>
@@ -44,7 +47,7 @@ function HomePoints() {
               <div className="card">
                 <div className="card-body">
                   <div className="service-icon">
-                    <img src="" alt="best care" />
+                    <img src={Orthodontics} alt="best care" />
                   </div>
                   <h3>Ortodoncia</h3>
                   <p>

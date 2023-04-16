@@ -1,23 +1,33 @@
 const profiles = {
   "laiz.medina@msdental.com": {
-    profile: "../assets/images/doctors/laiz_medina.jpg",
-    thumb: "../assets/images/doctors/laiz_thumb.jpg",
+    profile:
+      "https://res.cloudinary.com/dkq1y45tl/image/upload/v1681653105/doctors/laiz_medina_ng71jz.jpg",
+    thumb:
+      "https://res.cloudinary.com/dkq1y45tl/image/upload/v1681653105/doctors/laiz_thumb_iqd9os.jpg",
   },
   "erick.collado@msdental.com": {
-    profile: "../assets/images/doctors/erick_collado.jpg",
-    thumb: "../assets/images/doctors/erick_thumb.jpg",
+    profile:
+      "https://res.cloudinary.com/dkq1y45tl/image/upload/v1681653105/doctors/erick_collado_mhiqqa.jpg",
+    thumb:
+      "https://res.cloudinary.com/dkq1y45tl/image/upload/v1681653105/doctors/erick_thumb_llkbro.jpg",
   },
   "norma.fuentes@msdental.com": {
-    profile: "../assets/images/doctors/norma_fuentes.jpg",
-    thumb: "../assets/images/doctors/norma_thumb.jpg",
+    profile:
+      "https://res.cloudinary.com/dkq1y45tl/image/upload/v1681653106/doctors/norma_fuentes_vgi3sj.jpg",
+    thumb:
+      "https://res.cloudinary.com/dkq1y45tl/image/upload/v1681653106/doctors/norma_thumb_tfrsel.jpg",
   },
   "josue.munguia@msdental.com": {
-    profile: "../assets/images/doctors/josue_munguia.jpg",
-    thumb: "../assets/images/doctors/josue_thumb.jpg",
+    profile:
+      "https://res.cloudinary.com/dkq1y45tl/image/upload/v1681653105/doctors/josue_munguia_qekork.jpg",
+    thumb:
+      "https://res.cloudinary.com/dkq1y45tl/image/upload/v1681653105/doctors/josue_thumb_nmpwem.jpg",
   },
   "marian.somarriba@msdental.com": {
-    profile: "../assets/images/doctors/marian_somarriba.jpg",
-    thumb: "../assets/images/doctors/marian_thumb.jpg",
+    profile:
+      "https://res.cloudinary.com/dkq1y45tl/image/upload/v1681653106/doctors/marian_somarriba_tef60u.jpg",
+    thumb:
+      "https://res.cloudinary.com/dkq1y45tl/image/upload/v1681653105/doctors/marian_thumb_blvlok.jpg",
   },
 };
 
