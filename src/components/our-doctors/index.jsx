@@ -1,10 +1,11 @@
+/* eslint-disable global-require */
 /* eslint-disable import/no-extraneous-dependencies */
 import React from "react";
 import Slider from "react-slick";
 
 import { useGetDoctorsQuery } from "../../store/services/doctor";
 
-import profiles from "../../libs/doctors.json";
+import images from "../../libs/doctors";
 
 const settings = {
   dots: false,
@@ -59,7 +60,7 @@ function OurDoctors() {
                         <img
                           className="img-fluid"
                           alt={`foto de ${prefix} ${firstName} ${lastName}`}
-                          src={profiles[email].profile}
+                          src={images[email].profile}
                         />
                       </div>
                       <div className="pro-content">

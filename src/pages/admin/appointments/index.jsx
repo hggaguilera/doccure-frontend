@@ -3,7 +3,7 @@ import { Table, Switch } from "antd";
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 import Layout from "../../../components/layout/admin";
-import profiles from "../../../libs/doctors.json";
+import profiles from "../../../libs/doctors";
 
 import { useGetAppointmentsQuery } from "../../../store/services/appointment";
 

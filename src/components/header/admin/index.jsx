@@ -2,7 +2,7 @@ import React, { forwardRef } from "react";
 import { Link } from "react-router-dom";
 import FeatherIcon from "feather-icons-react";
 import Dropdown from "react-bootstrap/Dropdown";
-import profiles from "../../../libs/doctors.json";
+import profiles from "../../../libs/doctors";
 import Profile from "../../../assets/images/profile.png";
 import AdminLogo from "../../../assets/images/admin-logo.png";
 import SideBarLogo from "../../../assets/images/sidebar-logo.png";

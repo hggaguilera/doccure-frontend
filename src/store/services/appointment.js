@@ -7,10 +7,16 @@ export const appointmentApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl }),
   endpoints: (builder) => ({
     addAppointment: builder.mutation({
-      query: (body) => ({ url: "/appointment", method: "POST", body }),
-      invalidatesTags: ["Post"],
+      query: (body) => ({ url: "/appointments", method: "POST", body }),
+      invalidatesTags: ["Appointment"],
     }),
-    getAppointments: builder.query({ query: () => "/appointments" }),
+    getAppointments: builder.query({
+      query: () => "/appointments",
+      providesTags: (result) =>
+        result
+          ? [...result.map(({ id }) => ({ type: "Appointment", id })), "Appointment"]
+          : ["Appointment"],
+    }),
   }),
 });
 
