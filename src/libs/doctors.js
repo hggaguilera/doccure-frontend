@@ -1,25 +1,24 @@
-/* eslint-disable global-require */
-const images = {
+const profiles = {
   "laiz.medina@msdental.com": {
-    profile: require("../assets/images/doctors/laiz_medina.jpg").default,
-    thumb: require("../assets/images/doctors/laiz_thumb.jpg").default,
+    profile: "../assets/images/doctors/laiz_medina.jpg",
+    thumb: "../assets/images/doctors/laiz_thumb.jpg",
   },
   "erick.collado@msdental.com": {
-    profile: require("../assets/images/doctors/erick_collado.jpg").default,
-    thumb: require("../assets/images/doctors/erick_thumb.jpg").default,
+    profile: "../assets/images/doctors/erick_collado.jpg",
+    thumb: "../assets/images/doctors/erick_thumb.jpg",
   },
   "norma.fuentes@msdental.com": {
-    profile: require("../assets/images/doctors/norma_fuentes.jpg").default,
-    thumb: require("../assets/images/doctors/norma_thumb.jpg").default,
+    profile: "../assets/images/doctors/norma_fuentes.jpg",
+    thumb: "../assets/images/doctors/norma_thumb.jpg",
   },
   "josue.munguia@msdental.com": {
-    profile: require("../assets/images/doctors/josue_munguia.jpg").default,
-    thumb: require("../assets/images/doctors/josue_thumb.jpg").default,
+    profile: "../assets/images/doctors/josue_munguia.jpg",
+    thumb: "../assets/images/doctors/josue_thumb.jpg",
   },
   "marian.somarriba@msdental.com": {
-    profile: require("../assets/images/doctors/marian_somarriba.jpg").default,
-    thumb: require("../assets/images/doctors/marian_thumb.jpg").default,
+    profile: "../assets/images/doctors/marian_somarriba.jpg",
+    thumb: "../assets/images/doctors/marian_thumb.jpg",
   },
 };
 
-export default images;
+export default profiles;

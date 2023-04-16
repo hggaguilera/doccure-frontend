@@ -5,7 +5,7 @@ import Slider from "react-slick";
 
 import { useGetDoctorsQuery } from "../../store/services/doctor";
 
-import images from "../../libs/doctors";
+import profiles from "../../libs/doctors";
 
 const settings = {
   dots: false,
@@ -60,7 +60,7 @@ function OurDoctors() {
                         <img
                           className="img-fluid"
                           alt={`foto de ${prefix} ${firstName} ${lastName}`}
-                          src={images[email].profile}
+                          src={profiles[email].profile}
                         />
                       </div>
                       <div className="pro-content">
