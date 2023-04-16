@@ -31,7 +31,7 @@ function App() {
       <Route path="/terms" exact element={<TermsAndConditions />} />
       <Route path="/privacy-policy" exact element={<PrivacyPolicy />} />
       <Route path="/auth/login" exact element={<Login />} />
-      <Route element={<ProtectedRoute user={null} />}>
+      <Route element={<ProtectedRoute />}>
         <Route path="/admin" exact element={<Dashboard />} />
         <Route path="/admin/appointments" exact element={<Appointments />} />
         <Route path="/admin/specialties" exact element={<Dashboard />} />

@@ -2,7 +2,7 @@
 import React from "react";
 import Slider from "react-slick";
 
-import { useGetDoctorsQuery } from "../../services/doctor";
+import { useGetDoctorsQuery } from "../../store/services/doctor";
 
 import profiles from "../../libs/doctors.json";
 

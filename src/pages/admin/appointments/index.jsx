@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 import Layout from "../../../components/layout/admin";
 import profiles from "../../../libs/doctors.json";
 
-import { useGetAppointmentsQuery } from "../../../services/appointment";
+import { useGetAppointmentsQuery } from "../../../store/services/appointment";
 
 import "./index.css";
 

@@ -2456,7 +2456,7 @@ button.bg-danger:hover {
 .user-menu .dropdown-menu {
 	min-width: 420px;
 	padding: 0;
-	transform: translate(0px, 59px) !important;
+	/* transform: translate(0px, 59px) !important; */
 }
 .user-menu .dropdown-menu .dropdown-item {
 	display: flex;
@@ -3849,7 +3849,7 @@ span.fa.toggle-password\".fa-eye {
 	border: 1px solid #EEF1FE;
 	box-shadow: 0px 4px 4px #EEF1FE;
 	border-radius: 5px;
-	transform: translate(0px, 45px) !important;
+	/* transform: translate(0px, 45px) !important; */
 }
 .topnav-dropdown-header {
 	border-bottom: 1px solid #EEF1FE;

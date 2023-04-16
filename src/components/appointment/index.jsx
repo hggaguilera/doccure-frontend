@@ -6,9 +6,9 @@ import dayjs from "dayjs";
 import AppointmentForm from "../forms/appointment";
 
 // Queries
-import { useAddAppointmentMutation } from "../../services/appointment";
-import { useGetDoctorsQuery } from "../../services/doctor";
-import { useGetServicesQuery } from "../../services/service";
+import { useAddAppointmentMutation } from "../../store/services/appointment";
+import { useGetDoctorsQuery } from "../../store/services/doctor";
+import { useGetServicesQuery } from "../../store/services/service";
 
 // Locale
 import "dayjs/locale/es";

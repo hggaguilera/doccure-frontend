@@ -1,13 +1,19 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
 import LoginForm from "../../../components/forms/login";
+import { login } from "../../../store/features/auth";
 import { loginSchema } from "../../../libs/schemas";
 import ColorLogo from "../../../assets/images/admin-logo.png";
 
 import "./index.css";
 
 function Login() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -18,7 +24,9 @@ function Login() {
   });
 
   const onSubmit = (data) => {
-    console.log(data);
+    dispatch(login(data))
+      .unwrap()
+      .then(() => navigate("/admin"));
     reset();
   };
 

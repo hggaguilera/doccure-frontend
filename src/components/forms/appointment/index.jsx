@@ -10,7 +10,7 @@ import locale from "antd/es/date-picker/locale/es_ES";
 import "dayjs/locale/es";
 
 // Store
-import { useGetAppointmentsQuery } from "../../../services/appointment";
+import { useGetAppointmentsQuery } from "../../../store/services/appointment";
 
 // Custom Components
 import Input from "./input";

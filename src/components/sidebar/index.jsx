@@ -36,8 +36,8 @@ function Sidebar() {
                   <i className="fe fe-layout" /> <span>Citas</span>
                 </Link>
               </li>
-              <li className={pathname.includes("specialities") ? "active" : ""}>
-                <Link to="/admin/specialities">
+              <li className={pathname.includes("specialties") ? "active" : ""}>
+                <Link to="/admin/specialties">
                   <i className="fe fe-users" /> <span>Especialidades</span>
                 </Link>
               </li>

@@ -8,6 +8,15 @@
   max-width: inherit;
   max-height: 32px;
 }
+.main-drop .dropdown-menu {
+  transform: translate(-10px, 52px) !important;
+}
+.user-header .avatar {
+  height: auto;
+}
+.user-header .user-text h6 {
+  margin-bottom: 0 !important;
+}
 #toggle_btn {
   border: 0;
   background: transparent;
