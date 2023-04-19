@@ -47,9 +47,61 @@ function buildAppointmentPayload(data) {
   };
 }
 
+/**
+ * This function calculates the age of a person based on their date of birth
+ * @param dateOfBirth - The parameter `dateOfBirth` is a string representing a date of birth in the
+ * format "YYYY-MM-DD".
+ * @returns the age of a person based on their date of birth. It calculates the difference between the
+ * current date and the date of birth in years
+ */
+function calculateAge(dateOfBirth) {
+  const currentDate = dayjs();
+  const dob = dayjs(dateOfBirth);
+
+  if (!dob.isValid()) {
+    return "";
+  }
+
+  return currentDate.diff(dob, "year");
+}
+
+/**
+ * The function takes an address object and returns a formatted full address string.
+ * @param addressObj - an object containing the following properties:
+ * @returns The function `fullAddress` is returning a string that concatenates the `addressLineOne`,
+ * `townOrMunicipality`, `stateOrCity`, and `zipCode` properties of the `addressObj` parameter
+ * separated by commas.
+ */
+function formattedFullAddress(addressObj) {
+  const { addressLineOne, townOrMunicipality, stateOrCity, zipCode } = addressObj;
+  return `${addressLineOne}, ${townOrMunicipality}, ${stateOrCity}, ${zipCode}`;
+}
+
+/**
+ * The function takes a phone number object and returns the full phone number with country code and the
+ * phone number without the country code.
+ * @param phoneNumberObj - The `phoneNumberObj` parameter is an object that contains two properties:
+ * `countryCode` and `phoneNumber`. These properties represent the country code and phone number of a
+ * phone number.
+ * @returns An object with two properties: "fullNumber" which is a string concatenation of the
+ * "countryCode" and "phoneNumber" properties of the input object, and "phoneNumber" which is the same
+ * as the "phoneNumber" property of the input object.
+ */
+function formattedPhoneNumber(phoneNumberObj) {
+  const { countryCode, phoneNumber } = phoneNumberObj;
+
+  return {
+    fullNumber: `${countryCode}${phoneNumber}`,
+    phoneNumber,
+  };
+}
+
 export {
   doctorsFormattedData,
   servicesFormattedData,
   getDateTimeFromDateAndTime,
   buildAppointmentPayload,
+  calculateAge,
+  formattedFullAddress,
+  formattedPhoneNumber,
 };

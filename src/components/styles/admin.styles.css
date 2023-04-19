@@ -5230,6 +5230,11 @@ a.d-block.text-primary.mt-2 {
 	display: inline-flex;
 	vertical-align: middle; 
 }
+.custom-switch .ant-switch-handle {
+  top: 1.5px;
+  width: 15px;
+  height: 15px;
+}
 .ant-switch-checked .ant-switch-handle {
     left: calc(100% - 15px - 2px)!important;
 }

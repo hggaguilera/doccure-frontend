@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
+import jwtDecode from "jwt-decode";
+import Cookies from "js-cookie";
 import LoginForm from "../../../components/forms/login";
 import { login } from "../../../store/features/auth";
 import { loginSchema } from "../../../libs/schemas";
@@ -13,6 +15,19 @@ import "./index.css";
 function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = Cookies.get("token");
+
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      const currentTime = Date.now() / 1000;
+
+      if (decodedToken.exp > currentTime) {
+        navigate("/admin");
+      }
+    }
+  }, [navigate]);
 
   const {
     register,

@@ -25,7 +25,6 @@ export const login = createAsyncThunk("auth/login", async (payload, { rejectWith
     const decoded = jwtDecode(result.token);
 
     Cookies.set("token", result.token);
-    Cookies.set("tokenExpireTime", Date.now() + 1800 * 100);
 
     return { name: decoded.name, email: decoded.username };
   } catch (err) {

@@ -14,6 +14,8 @@ import PrivacyPolicy from "./pages/client/privacy-policy";
 // Admin
 import Dashboard from "./pages/admin/dashboard";
 import Appointments from "./pages/admin/appointments";
+import Doctors from "./pages/admin/doctors";
+import Patients from "./pages/admin/patients";
 
 // Auth
 import Login from "./pages/auth/login";
@@ -35,8 +37,8 @@ function App() {
         <Route path="/admin" exact element={<Dashboard />} />
         <Route path="/admin/appointments" exact element={<Appointments />} />
         <Route path="/admin/specialties" exact element={<Dashboard />} />
-        <Route path="/admin/doctors" exact element={<Dashboard />} />
-        <Route path="/admin/patients" exact element={<Dashboard />} />
+        <Route path="/admin/doctors" exact element={<Doctors />} />
+        <Route path="/admin/patients" exact element={<Patients />} />
       </Route>
     </Routes>
   );
