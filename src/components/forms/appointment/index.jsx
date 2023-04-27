@@ -9,17 +9,19 @@ import dayjs from "dayjs";
 import locale from "antd/es/date-picker/locale/es_ES";
 import "dayjs/locale/es";
 
-// Store
-import { useGetAppointmentsQuery } from "../../../store/services/appointment";
-
 // Custom Components
 import Input from "./input";
 
 import "./index.css";
 
+const { Option, OptGroup } = Select;
+
 function AppointmentForm({
   doctors,
-  services,
+  specialties,
+  appointments,
+  doctor,
+  selectDoctor,
   register,
   control,
   handleSubmit,
@@ -27,9 +29,7 @@ function AppointmentForm({
   errors,
   disabled,
 }) {
-  const [selectedDoctor, setSelectedDoctor] = useState();
   const [disabledHours, setDisabledHours] = useState([]);
-  const { data } = useGetAppointmentsQuery();
 
   const range = (start, end) => {
     const result = [];
@@ -47,7 +47,31 @@ function AppointmentForm({
   };
 
   const disabledDate = (current) => {
-    return dayjs().add(-1, "days") >= current;
+    const currentDate = dayjs();
+    const currentHour = currentDate.hour();
+
+    if (dayjs().add(-1, "days") >= current) {
+      return true;
+    }
+    if (current && current.isSame(currentDate, "day") && currentHour >= 17) {
+      return true;
+    }
+    return false;
+  };
+
+  const handleDisabledHoursOnSelect = (date) => {
+    const selectedDate = dayjs(date).toString();
+    const hours = doctor
+      ? appointments
+          .filter(
+            (appt) => appt.doctor === doctor.label && dayjs(selectedDate).isSame(appt.date, "day"),
+          )
+          .map((rec) => {
+            const formattedDate = new Date(rec.date).toLocaleString();
+            return dayjs(formattedDate).get("hour");
+          })
+      : [];
+    setDisabledHours(hours);
   };
 
   return (
@@ -124,7 +148,7 @@ function AppointmentForm({
                     showSearch
                     onChange={(val, opt) => {
                       field.onChange(val);
-                      setSelectedDoctor(opt.label);
+                      selectDoctor({ id: opt.value, label: opt.label });
                     }}
                     placeholder="Seleccione un Doctor"
                     optionFilterProp="children"
@@ -158,8 +182,17 @@ function AppointmentForm({
                     filterOption={(input, option) =>
                       (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
                     }
-                    options={services}
-                  />
+                  >
+                    {specialties?.map((specialty) => (
+                      <OptGroup key={specialty.id} label={specialty.specialtyName}>
+                        {specialty.services?.map((service) => (
+                          <Option key={service.id} value={service.id}>
+                            {service.name}
+                          </Option>
+                        ))}
+                      </OptGroup>
+                    ))}
+                  </Select>
                   {error?.message && <p className="invalid">{error.message}</p>}
                 </>
               );
@@ -185,20 +218,7 @@ function AppointmentForm({
                     showTime={false}
                     onChange={(val) => {
                       field.onChange(val);
-                      const selectedDate = dayjs(val).toString();
-                      const hours = selectedDoctor
-                        ? data
-                            .filter(
-                              (appt) =>
-                                appt.doctor === selectedDoctor &&
-                                dayjs(selectedDate).isSame(appt.date, "day"),
-                            )
-                            .map((rec) => {
-                              const formattedDate = new Date(rec.date).toLocaleString();
-                              return dayjs(formattedDate).get("hour");
-                            })
-                        : [];
-                      setDisabledHours(hours);
+                      handleDisabledHoursOnSelect(val);
                     }}
                     disabledDate={disabledDate}
                     locale={locale}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
@@ -6,7 +6,10 @@ import dayjs from "dayjs";
 import AppointmentForm from "../forms/appointment";
 
 // Queries
-import { useAddAppointmentMutation } from "../../store/services/appointment";
+import {
+  useAddAppointmentMutation,
+  useGetAppointmentsQuery,
+} from "../../store/services/appointment";
 import { useGetDoctorsQuery } from "../../store/services/doctor";
 import { useGetServicesQuery } from "../../store/services/service";
 
@@ -15,16 +18,14 @@ import "dayjs/locale/es";
 
 // Validations
 import { bookAppointmentSchema } from "../../libs/schemas";
-import {
-  doctorsFormattedData,
-  servicesFormattedData,
-  buildAppointmentPayload,
-} from "../../libs/helpers";
+import { doctorsFormattedData, buildAppointmentPayload } from "../../libs/helpers";
 
 function Appointment() {
+  const [selectedDoctor, setSelectedDoctor] = useState();
   const [addAppointment, { isLoading }] = useAddAppointmentMutation();
   const { data: doctors } = useGetDoctorsQuery();
-  const { data: services } = useGetServicesQuery();
+  const { data: specialties } = useGetServicesQuery();
+  const { data: appointments } = useGetAppointmentsQuery();
 
   const {
     register,
@@ -37,7 +38,10 @@ function Appointment() {
   });
 
   const doctorsData = doctorsFormattedData(doctors);
-  const servicesData = servicesFormattedData(services);
+
+  const filteredSpecialties = specialties?.filter((specialty) => {
+    return specialty.doctors.includes(selectedDoctor?.id);
+  });
 
   const onSubmit = (data) => {
     const payload = buildAppointmentPayload(data);
@@ -84,7 +88,10 @@ function Appointment() {
                 <div className="card-body">
                   <AppointmentForm
                     doctors={doctorsData}
-                    services={servicesData}
+                    specialties={filteredSpecialties}
+                    appointments={appointments}
+                    doctor={selectedDoctor}
+                    selectDoctor={setSelectedDoctor}
                     register={register}
                     control={control}
                     handleSubmit={handleSubmit}

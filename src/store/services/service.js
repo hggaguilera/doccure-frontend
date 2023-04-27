@@ -6,7 +6,7 @@ export const serviceApi = createApi({
   reducerPath: "serviceApi",
   baseQuery: fetchBaseQuery({ baseUrl }),
   endpoints: (builder) => ({
-    getServices: builder.query({ query: () => "/services" }),
+    getServices: builder.query({ query: () => "/services/services-by-categories" }),
   }),
 });
 
