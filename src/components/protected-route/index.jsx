@@ -18,6 +18,8 @@ function ProtectedRoute({ redirectPath = "/auth/login", children }) {
     console.log("current time", currentTime);
 
     if (decodedToken.exp < currentTime) {
+      console.log("token has expire");
+      Cookies.remove("token");
       return false;
     }
 

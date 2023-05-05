@@ -27,3 +27,33 @@ export const loginSchema = yup.object().shape({
     .required("Escriba su correo electronico para poder acceder al sistema"),
   password: yup.string().required("Escriba su contraseña para poder acceder al sistema"),
 });
+
+export const patientSchema = yup.object().shape({
+  firstName: yup.string().required("Escriba el nombre del paciente"),
+  middleName: yup.string(),
+  lastName: yup.string().required("Escriba el apellido del paciente"),
+  dateOfBirth: yup.date().required("Elija la fecha de nacimiento del paciente"),
+  email: yup.string(),
+  phone: yup
+    .array(
+      yup.object().shape({
+        isPrimary: yup.bool(),
+        type: yup.string(),
+        countryCode: yup.string(),
+        phoneNumber: yup.string(),
+      }),
+    )
+    .min(1),
+  address: yup
+    .array(
+      yup.object().shape({
+        countryId: yup.string(),
+        addressLineOne: yup.string(),
+        addressLineTwo: yup.string(),
+        stateOrCity: yup.string(),
+        townOrMunicipality: yup.string(),
+        zipCode: yup.string(),
+      }),
+    )
+    .min(1),
+});

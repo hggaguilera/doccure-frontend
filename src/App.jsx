@@ -16,6 +16,7 @@ import Dashboard from "./pages/admin/dashboard";
 import Appointments from "./pages/admin/appointments";
 import Doctors from "./pages/admin/doctors";
 import Patients from "./pages/admin/patients";
+import NewPatient from "./pages/admin/patients/new-patient";
 
 // Auth
 import Login from "./pages/auth/login";
@@ -39,6 +40,7 @@ function App() {
         <Route path="/admin/specialties" exact element={<Dashboard />} />
         <Route path="/admin/doctors" exact element={<Doctors />} />
         <Route path="/admin/patients" exact element={<Patients />} />
+        <Route path="/admin/patients/new" exact element={<NewPatient />} />
       </Route>
     </Routes>
   );

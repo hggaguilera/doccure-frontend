@@ -13,7 +13,7 @@ import {
   selectAuthError,
 } from "../../../store/features/auth/selectors";
 
-function Layout({ pageTitle, mainPage, mainPageUrl, currentPage, children }) {
+function Layout({ pageTitle, mainPage, mainPageUrl, currentPage, actionButton, children }) {
   const token = Cookies.get("token");
   const { loading } = useSelector(selectAuthRawData);
   let userInfo = useSelector(selectUserAuthData);
@@ -44,7 +44,7 @@ function Layout({ pageTitle, mainPage, mainPageUrl, currentPage, children }) {
           ) : null}
           <div className="page-header">
             <div className="row">
-              <div className="col-sm-12">
+              <div className="col-sm-7 col-auto">
                 <h3 className="page-title">{pageTitle}</h3>
                 <ul className="breadcrumb">
                   {mainPage ? (
@@ -55,6 +55,7 @@ function Layout({ pageTitle, mainPage, mainPageUrl, currentPage, children }) {
                   <li className="breadcrumb-item active">{currentPage}</li>
                 </ul>
               </div>
+              {actionButton ? <div className="col-sm-5 col">{actionButton}</div> : null}
             </div>
           </div>
           {children}

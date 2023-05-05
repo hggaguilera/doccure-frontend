@@ -1,7 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Table, Switch } from "antd";
-// import { Link } from "react-router-dom";
-// import dayjs from "dayjs";
 
 // Locale
 import "dayjs/locale/es";
@@ -31,18 +30,14 @@ function Patients() {
       title: "Direccion",
       dataIndex: "addresses",
       render: (_, record) => {
-        if (!record.addresses.length) {
-          return "";
-        }
-
-        return formattedFullAddress(record.addresses[0]);
+        return formattedFullAddress(record.addresses);
       },
     },
     {
       title: "Numero de Telefono",
       dataIndex: "phoneNumbers",
       render: (_, record) => {
-        const formattedNumber = formattedPhoneNumber(record.phoneNumbers[0]);
+        const formattedNumber = formattedPhoneNumber(record.phoneNumbers);
 
         return <a href={`tel:${formattedNumber.fullNumber}`}>{formattedNumber.phoneNumber}</a>;
       },
@@ -57,10 +52,30 @@ function Patients() {
       dataIndex: "status",
       render: (text) => <Switch className="custom-switch" checked={text === "active"} />,
     },
+    {
+      title: "Acciones",
+      render: () => (
+        <button type="button" className="btn btn-outline-primary" onClick={() => {}}>
+          Editar
+        </button>
+      ),
+    },
   ];
 
+  const renderActionButton = () => (
+    <Link className="btn btn-primary float-end mt-2" to="new">
+      Agregar Paciente
+    </Link>
+  );
+
   return (
-    <Layout pageTitle="Pacientes" mainPage="Tablero" mainPageUrl="/admin" currentPage="Pacientes">
+    <Layout
+      pageTitle="Pacientes"
+      mainPage="Tablero"
+      mainPageUrl="/admin"
+      currentPage="Pacientes"
+      actionButton={renderActionButton()}
+    >
       <div className="row">
         <div className="col-md-12">
           <div className="card">

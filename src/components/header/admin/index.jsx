@@ -1,5 +1,6 @@
 import React, { forwardRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 import FeatherIcon from "feather-icons-react";
 import Dropdown from "react-bootstrap/Dropdown";
 import profiles from "../../../libs/doctors";
@@ -21,6 +22,8 @@ const CustomToggle = forwardRef(({ children, onClick }, ref) => (
 ));
 
 function Header({ username, email, isLoading }) {
+  const navigate = useNavigate();
+
   const handleSidebarResize = () => {
     document.body.classList.toggle("mini-sidebar");
   };
@@ -83,12 +86,19 @@ function Header({ username, email, isLoading }) {
               Settings
             </Link> */}
             <hr className="my-0 ms-2 me-2" />
-            <Link className="dropdown-item" to="/admin/login">
+            <button
+              type="button"
+              className="dropdown-item"
+              onClick={() => {
+                Cookies.remove("token");
+                navigate("/auth/login");
+              }}
+            >
               <i className="me-1">
                 <FeatherIcon icon="log-out" />
               </i>
               Cerrar Sesion
-            </Link>
+            </button>
           </Dropdown.Menu>
         </Dropdown>
         {/* <li className="nav-item dropdown main-drop">
