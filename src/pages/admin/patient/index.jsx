@@ -89,9 +89,10 @@ function Patient({ editMode = false }) {
     return current && current.year() > dayjs().year() - 3;
   };
 
-  const defaultCountry = isLoadingCountriesList
-    ? "ni"
-    : countries.find((item) => item.value === initialData?.address.countryId);
+  const defaultCountry =
+    isLoadingCountriesList || !initialData?.address
+      ? "ni"
+      : countries.find((item) => item.value === initialData?.address.countryId);
 
   const onSubmit = (values) => {
     console.log(values);
@@ -127,6 +128,7 @@ function Patient({ editMode = false }) {
                 <Input
                   name="firstName"
                   label="Primer Nombre"
+                  placeholder="John"
                   type="text"
                   readOnly={editMode}
                   register={register}
@@ -137,6 +139,7 @@ function Patient({ editMode = false }) {
                 <Input
                   name="middleName"
                   label="Segundo Nombre"
+                  placeholder="Ibrahim"
                   type="text"
                   register={register}
                   error={errors?.middleName?.message}
@@ -146,6 +149,7 @@ function Patient({ editMode = false }) {
                 <Input
                   name="lastName"
                   label="Apellido"
+                  placeholder="Doe"
                   type="text"
                   readOnly={editMode}
                   register={register}
@@ -182,6 +186,7 @@ function Patient({ editMode = false }) {
                 <Input
                   name="email"
                   label="Correo"
+                  placeholder="john.doe@mail.com"
                   type="email"
                   register={register}
                   error={errors?.email?.message}
@@ -245,7 +250,7 @@ function Patient({ editMode = false }) {
                           placeholder="ej. 86433047"
                           preferredCountries={["bz", "gt", "sv", "hn", "ni", "cr", "pa"]}
                           defaultCountry={
-                            isLoadingCountriesList
+                            isLoadingCountriesList || !initialData?.address
                               ? "ni"
                               : defaultCountry?.country_abbr.toLowerCase()
                           }
@@ -299,6 +304,7 @@ function Patient({ editMode = false }) {
                 <Input
                   name="address.addressLineOne"
                   label="Direccion"
+                  placeholder="Ave. Las Palmas"
                   type="text"
                   register={register}
                   error={errors?.address?.addressLineOne?.message}
@@ -308,6 +314,7 @@ function Patient({ editMode = false }) {
                 <Input
                   name="address.addressLineTwo"
                   label="Direccion Complementaria"
+                  placeholder="3A Poniente Norte 3"
                   type="text"
                   register={register}
                 />
@@ -316,6 +323,7 @@ function Patient({ editMode = false }) {
                 <Input
                   name="address.townOrMunicipality"
                   label="Provincia/Municipio"
+                  placeholder="Chinandega"
                   type="text"
                   register={register}
                   error={errors?.address?.townOrMunicipality?.message}
@@ -325,6 +333,7 @@ function Patient({ editMode = false }) {
                 <Input
                   name="address.stateOrCity"
                   label="Ciudad/Estado"
+                  placeholder="Chinandega"
                   type="text"
                   register={register}
                   error={errors?.address?.stateOrCity?.message}
@@ -334,6 +343,7 @@ function Patient({ editMode = false }) {
                 <Input
                   name="address.zipCode"
                   label="Codigo Postal"
+                  placeholder="21100"
                   type="text"
                   register={register}
                 />

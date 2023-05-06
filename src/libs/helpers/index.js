@@ -73,6 +73,9 @@ function calculateAge(dateOfBirth) {
  * separated by commas.
  */
 function formattedFullAddress(addressObj) {
+  if (!addressObj) {
+    return "";
+  }
   const { addressLineOne, townOrMunicipality, stateOrCity, zipCode } = addressObj;
   return `${addressLineOne}, ${townOrMunicipality}, ${stateOrCity}, ${zipCode}`;
 }

@@ -7200,6 +7200,9 @@ body.darkmode {
   height: 48px;
   border: 1px solid #d9d9d9;
 }
+.section-group .form-group input.form-control::placeholder {
+  color: #cccccc;
+}
 .section-group .form-group .ant-picker,
 .section-group .form-group .ant-select .ant-select-selector,
 .section-group .form-group .intl-tel-input input[type="tel"] {
