@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Table, Switch } from "antd";
 
 // Locale
@@ -15,11 +15,13 @@ import { useGetPatientsQuery } from "@/store/services/patient";
 
 function Patients() {
   const { data } = useGetPatientsQuery();
+  const navigate = useNavigate();
 
   const columns = [
     {
       title: "Nombre de el Paciente",
       dataIndex: "name",
+      render: (_, record) => `${record.firstName} ${record.lastName}`,
     },
     {
       title: "Edad",
@@ -54,8 +56,12 @@ function Patients() {
     },
     {
       title: "Acciones",
-      render: () => (
-        <button type="button" className="btn btn-outline-primary" onClick={() => {}}>
+      render: (_, record) => (
+        <button
+          type="button"
+          className="btn btn-outline-primary"
+          onClick={() => navigate(`/admin/patients/edit/${record.id}`)}
+        >
           Editar
         </button>
       ),

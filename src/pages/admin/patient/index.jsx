@@ -1,6 +1,8 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Alert } from "react-bootstrap";
 import { useParams } from "react-router-dom";
+import { skipToken } from "@reduxjs/toolkit/query/react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { DatePicker, Select } from "antd";
@@ -17,33 +19,79 @@ import Input from "@/components/forms/new-patient/input";
 
 // Helpers
 import { patientSchema } from "@/libs/schemas";
+import { useGetCountriesQuery, useGetPatientByIdQuery } from "@/store/services";
+import { patientInitialValues } from "@/libs/init-state";
 
-function NewPatient() {
+const contactType = [
+  {
+    value: "yes",
+    label: "Primario",
+  },
+  {
+    value: "no",
+    label: "Secundario",
+  },
+];
+
+const numberType = [
+  {
+    value: "mobile",
+    label: "Movil",
+  },
+  {
+    value: "home",
+    label: "Casa",
+  },
+  {
+    value: "work",
+    label: "Trabajo",
+  },
+  {
+    value: "other",
+    label: "Otro",
+  },
+];
+
+function Patient({ editMode = false }) {
+  const [initialData, setInitialData] = useState();
   const { patientId } = useParams();
+  const { data: countries, isLoading: isLoadingCountriesList } = useGetCountriesQuery();
+  const { data: patientData } = useGetPatientByIdQuery(patientId || skipToken);
 
   const {
     register,
     control,
     handleSubmit,
-    formState: { errors, isValid },
+    reset,
+    formState: { errors },
   } = useForm({
-    defaultValues: !patientId
-      ? {
-          firstName: "",
-          middleName: "",
-          lastName: "",
-          dateOfBirth: "",
-          email: "",
-          phoneNumbers: {},
-          addresses: {},
-        }
-      : { nothing: "here should be the backend values" },
     resolver: yupResolver(patientSchema),
   });
+
+  useEffect(() => {
+    const settingInitialValue = () => {
+      if (patientData) {
+        return setInitialData(patientData);
+      }
+
+      const data = patientInitialValues(countries);
+      return setInitialData(data);
+    };
+
+    settingInitialValue();
+  }, [countries, patientData]);
+
+  useEffect(() => {
+    reset(initialData);
+  }, [reset, initialData]);
 
   const disabledDate = (current) => {
     return current && current.year() > dayjs().year() - 3;
   };
+
+  const defaultCountry = isLoadingCountriesList
+    ? "ni"
+    : countries.find((item) => item.value === initialData?.address.countryId);
 
   const onSubmit = (values) => {
     console.log(values);
@@ -56,6 +104,13 @@ function NewPatient() {
       mainPageUrl="/admin"
       currentPage="Nuevo Paciente"
     >
+      {Object.keys(errors).length ? (
+        <Alert variant="danger" dismissible>
+          <Alert.Heading>¡Tienes un error!</Alert.Heading>
+          <p>Los campos en rojo son requeridos, por favor completalos para poder continuar.</p>
+        </Alert>
+      ) : null}
+
       <form className="row" onSubmit={handleSubmit(onSubmit)}>
         <div className="col-12">
           <div className="section-group">
@@ -73,6 +128,7 @@ function NewPatient() {
                   name="firstName"
                   label="Primer Nombre"
                   type="text"
+                  readOnly={editMode}
                   register={register}
                   error={errors?.firstName?.message}
                 />
@@ -91,32 +147,32 @@ function NewPatient() {
                   name="lastName"
                   label="Apellido"
                   type="text"
+                  readOnly={editMode}
                   register={register}
                   error={errors?.lastName?.message}
                 />
               </div>
               <div className="col-12 col-md-6 col-lg-4">
-                <div className="form-group">
+                <div className={errors?.dateOfBirth?.message ? "form-group error" : "form-group"}>
                   <label htmlFor="dateOfBirth">Fecha de Nacimiento</label>
                   <Controller
                     name="dateOfBirth"
                     control={control}
                     render={({ field, fieldState: { error } }) => {
                       return (
-                        <>
-                          <DatePicker
-                            {...field}
-                            className={error?.message ? "input-error" : ""}
-                            showToday={false}
-                            showNow={false}
-                            showTime={false}
-                            disabledDate={disabledDate}
-                            defaultPickerValue={dayjs("01/01/2020")}
-                            locale={locale}
-                            format="D [de] MMMM [de] YYYY"
-                          />
-                          {error?.message && <p className="invalid">{error.message}</p>}
-                        </>
+                        <DatePicker
+                          {...field}
+                          className={error?.message ? "input-error" : ""}
+                          showToday={false}
+                          showNow={false}
+                          showTime={false}
+                          inputReadOnly={editMode}
+                          disabledDate={disabledDate}
+                          defaultPickerValue={dayjs("01/01/2020")}
+                          value={field.value ? dayjs(field?.value) : null}
+                          locale={locale}
+                          format="D [de] MMMM [de] YYYY"
+                        />
                       );
                     }}
                   />
@@ -153,15 +209,7 @@ function NewPatient() {
                     name="phone.isPrimary"
                     control={control}
                     render={({ field }) => {
-                      return (
-                        <Select
-                          {...field}
-                          optionFilterProp="children"
-                          filterOption={(input, option) =>
-                            (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
-                          }
-                        />
-                      );
+                      return <Select {...field} options={contactType} defaultValue="yes" />;
                     }}
                   />
                 </div>
@@ -173,48 +221,43 @@ function NewPatient() {
                     name="phone.type"
                     control={control}
                     render={({ field }) => {
-                      return (
-                        <Select
-                          {...field}
-                          optionFilterProp="children"
-                          filterOption={(input, option) =>
-                            (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
-                          }
-                        />
-                      );
+                      return <Select {...field} options={numberType} defaultValue="mobile" />;
                     }}
                   />
                 </div>
               </div>
               <div className="col-12 col-sm-4">
-                <div className="form-group">
+                <div
+                  className={
+                    errors?.phone?.phoneNumber?.message ? "form-group error" : "form-group"
+                  }
+                >
                   <label htmlFor="phone">Numero Telefónico</label>
                   <Controller
                     name="phone"
                     control={control}
-                    render={({ field: { onChange, value }, fieldState: { error } }) => {
+                    render={({ field: { onChange, value } }) => {
                       return (
-                        <>
-                          <IntlTelInput
-                            containerClassName={
-                              error?.message ? "intl-tel-input input-error" : "intl-tel-input"
-                            }
-                            fieldId="phone"
-                            fieldName="phone"
-                            placeholder="ej. 86433047"
-                            preferredCountries={["bz", "gt", "sv", "hn", "ni", "cr", "pa"]}
-                            defaultCountry="ni"
-                            value={value?.phoneNumber || ""}
-                            inputClassName="phone-number"
-                            onPhoneNumberChange={(_, fullNumber, countryData) =>
-                              onChange({
-                                countryCode: countryData.dialCode,
-                                phoneNumber: fullNumber,
-                              })
-                            }
-                          />
-                          {error?.message && <p className="invalid">{error.message}</p>}
-                        </>
+                        <IntlTelInput
+                          containerClassName="intl-tel-input"
+                          fieldId="phone"
+                          fieldName="phone"
+                          placeholder="ej. 86433047"
+                          preferredCountries={["bz", "gt", "sv", "hn", "ni", "cr", "pa"]}
+                          defaultCountry={
+                            isLoadingCountriesList
+                              ? "ni"
+                              : defaultCountry?.country_abbr.toLowerCase()
+                          }
+                          value={value?.phoneNumber || ""}
+                          inputClassName="phone-number"
+                          onPhoneNumberChange={(_, fullNumber, countryData) =>
+                            onChange({
+                              countryCode: countryData.dialCode,
+                              phoneNumber: fullNumber,
+                            })
+                          }
+                        />
                       );
                     }}
                   />
@@ -240,10 +283,12 @@ function NewPatient() {
                       return (
                         <Select
                           {...field}
+                          showSearch
                           optionFilterProp="children"
                           filterOption={(input, option) =>
                             (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
                           }
+                          options={countries}
                         />
                       );
                     }}
@@ -256,6 +301,7 @@ function NewPatient() {
                   label="Direccion"
                   type="text"
                   register={register}
+                  error={errors?.address?.addressLineOne?.message}
                 />
               </div>
               <div className="col-12 col-md-6 col-lg-4">
@@ -268,18 +314,20 @@ function NewPatient() {
               </div>
               <div className="col-12 col-md-6 col-lg-4">
                 <Input
-                  name="address.stateOrCity"
-                  label="Ciudad/Estado"
-                  type="text"
-                  register={register}
-                />
-              </div>
-              <div className="col-12 col-md-6 col-lg-4">
-                <Input
                   name="address.townOrMunicipality"
                   label="Provincia/Municipio"
                   type="text"
                   register={register}
+                  error={errors?.address?.townOrMunicipality?.message}
+                />
+              </div>
+              <div className="col-12 col-md-6 col-lg-4">
+                <Input
+                  name="address.stateOrCity"
+                  label="Ciudad/Estado"
+                  type="text"
+                  register={register}
+                  error={errors?.address?.stateOrCity?.message}
                 />
               </div>
               <div className="col-12 col-md-6 col-lg-4">
@@ -294,7 +342,7 @@ function NewPatient() {
           </div>
         </div>
         <div className="col-12">
-          <button type="submit" className="btn btn-outline-primary" disabled={!isValid}>
+          <button type="submit" className="btn btn-outline-primary">
             Guardar
           </button>
         </div>
@@ -303,4 +351,4 @@ function NewPatient() {
   );
 }
 
-export default NewPatient;
+export default Patient;

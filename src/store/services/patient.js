@@ -18,8 +18,18 @@ export const patientApi = createApi({
   endpoints: (builder) => ({
     getPatients: builder.query({
       query: () => "/patients",
+      providesTags: (result) =>
+        result ? [...result.map(({ id }) => ({ type: "Patient", id })), "Patient"] : ["Patient"],
+    }),
+    getPatientById: builder.query({
+      query: (id) => `/patients/${id}`,
+      providesTags: (result, error, id) => [{ type: "Patient", id }],
+    }),
+    addPatient: builder.mutation({
+      query: (body) => ({ url: "/patients", method: "POST", body }),
+      invalidatesTags: ["Patient"],
     }),
   }),
 });
 
-export const { useGetPatientsQuery } = patientApi;
+export const { useGetPatientsQuery, useGetPatientByIdQuery, useAddPatientMutation } = patientApi;

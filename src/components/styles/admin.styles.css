@@ -7208,3 +7208,12 @@ body.darkmode {
 .section-group .form-group .intl-tel-input .flag-box {
 	height: auto;
 }
+.section-group .form-group.error label {
+  color: red;
+}
+.section-group .form-group.error input.form-control,
+.section-group .form-group.error .ant-picker,
+.section-group .form-group.error .ant-select .ant-select-selector,
+.section-group .form-group.error .intl-tel-input input[type="tel"] {
+  border-color: red;
+}

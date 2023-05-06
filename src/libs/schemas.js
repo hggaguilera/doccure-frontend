@@ -29,31 +29,26 @@ export const loginSchema = yup.object().shape({
 });
 
 export const patientSchema = yup.object().shape({
+  id: yup.string(),
   firstName: yup.string().required("Escriba el nombre del paciente"),
   middleName: yup.string(),
   lastName: yup.string().required("Escriba el apellido del paciente"),
-  dateOfBirth: yup.date().required("Elija la fecha de nacimiento del paciente"),
+  dateOfBirth: yup.string().required("Elija la fecha de nacimiento del paciente"),
   email: yup.string(),
-  phone: yup
-    .array(
-      yup.object().shape({
-        isPrimary: yup.bool(),
-        type: yup.string(),
-        countryCode: yup.string(),
-        phoneNumber: yup.string(),
-      }),
-    )
-    .min(1),
-  address: yup
-    .array(
-      yup.object().shape({
-        countryId: yup.string(),
-        addressLineOne: yup.string(),
-        addressLineTwo: yup.string(),
-        stateOrCity: yup.string(),
-        townOrMunicipality: yup.string(),
-        zipCode: yup.string(),
-      }),
-    )
-    .min(1),
+  phone: yup.object().shape({
+    id: yup.string(),
+    isPrimary: yup.string(),
+    type: yup.string(),
+    countryCode: yup.string(),
+    phoneNumber: yup.string().required("Escriba el numero de telefono del paciente"),
+  }),
+  address: yup.object().shape({
+    id: yup.string(),
+    countryId: yup.string(),
+    addressLineOne: yup.string().required("Escriba la direccion del paciente"),
+    addressLineTwo: yup.string(),
+    stateOrCity: yup.string().required("Escriba la ciudad en la que reside"),
+    townOrMunicipality: yup.string().required("Escriba el municipio en el que reside"),
+    zipCode: yup.string(),
+  }),
 });
