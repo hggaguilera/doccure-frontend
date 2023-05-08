@@ -6,8 +6,17 @@ export const doctorApi = createApi({
   reducerPath: "doctorApi",
   baseQuery: fetchBaseQuery({ baseUrl }),
   endpoints: (builder) => ({
-    getDoctors: builder.query({ query: () => "/doctors" }),
+    getDoctors: builder.query({
+      query: () => "/doctors",
+      providesTags: (result) =>
+        result ? [...result.map(({ id }) => ({ type: "Doctor", id })), "Doctor"] : ["Doctor"],
+    }),
+    getDoctorsBasicInfo: builder.query({
+      query: () => "/doctors/simplified",
+      providesTags: (result) =>
+        result ? [...result.map(({ id }) => ({ type: "Doctor", id })), "Doctor"] : ["Doctor"],
+    }),
   }),
 });
 
-export const { useGetDoctorsQuery } = doctorApi;
+export const { useGetDoctorsQuery, useGetDoctorsBasicInfoQuery } = doctorApi;

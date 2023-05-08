@@ -17,7 +17,15 @@ export const appointmentApi = createApi({
           ? [...result.map(({ id }) => ({ type: "Appointment", id })), "Appointment"]
           : ["Appointment"],
     }),
+    getAppointmentsDates: builder.query({
+      query: () => "/appointments/dates",
+      providesTags: (result) =>
+        result
+          ? [...result.map(({ id }) => ({ type: "Appointment", id })), "Appointment"]
+          : ["Appointment"],
+    }),
   }),
 });
 
-export const { useAddAppointmentMutation, useGetAppointmentsQuery } = appointmentApi;
+export const { useAddAppointmentMutation, useGetAppointmentsQuery, useGetAppointmentsDatesQuery } =
+  appointmentApi;

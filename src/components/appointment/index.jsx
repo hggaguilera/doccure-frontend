@@ -8,9 +8,9 @@ import AppointmentForm from "../forms/appointment";
 // Queries
 import {
   useAddAppointmentMutation,
-  useGetAppointmentsQuery,
+  useGetAppointmentsDatesQuery,
 } from "../../store/services/appointment";
-import { useGetDoctorsQuery } from "../../store/services/doctor";
+import { useGetDoctorsBasicInfoQuery } from "../../store/services/doctor";
 import { useGetServicesQuery } from "../../store/services/service";
 
 // Locale
@@ -23,9 +23,9 @@ import { doctorsFormattedData, buildAppointmentPayload } from "../../libs/helper
 function Appointment() {
   const [selectedDoctor, setSelectedDoctor] = useState();
   const [addAppointment, { isLoading }] = useAddAppointmentMutation();
-  const { data: doctors } = useGetDoctorsQuery();
+  const { data: doctors } = useGetDoctorsBasicInfoQuery();
   const { data: specialties } = useGetServicesQuery();
-  const { data: appointments } = useGetAppointmentsQuery();
+  const { data: appointments } = useGetAppointmentsDatesQuery();
 
   const {
     register,

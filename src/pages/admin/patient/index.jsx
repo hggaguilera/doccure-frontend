@@ -62,6 +62,8 @@ function Patient({ editMode = false }) {
     register,
     control,
     handleSubmit,
+    getValues,
+    setValue,
     reset,
     formState: { errors },
   } = useForm({
@@ -82,8 +84,14 @@ function Patient({ editMode = false }) {
   }, [countries, patientData]);
 
   useEffect(() => {
+    if (!initialData?.address) {
+      const nic = isLoadingCountriesList
+        ? "Nicaragua"
+        : countries.find((item) => item.label === "Nicaragua");
+      setInitialData({ ...initialData, address: { countryId: nic.value } });
+    }
     reset(initialData);
-  }, [reset, initialData]);
+  }, [reset, setValue, initialData, countries, isLoadingCountriesList]);
 
   const disabledDate = (current) => {
     return current && current.year() > dayjs().year() - 3;
@@ -141,6 +149,7 @@ function Patient({ editMode = false }) {
                   label="Segundo Nombre"
                   placeholder="Ibrahim"
                   type="text"
+                  readOnly={!!getValues("middleName") && editMode}
                   register={register}
                   error={errors?.middleName?.message}
                 />
@@ -214,7 +223,14 @@ function Patient({ editMode = false }) {
                     name="phone.isPrimary"
                     control={control}
                     render={({ field }) => {
-                      return <Select {...field} options={contactType} defaultValue="yes" />;
+                      return (
+                        <Select
+                          {...field}
+                          options={contactType}
+                          defaultValue="yes"
+                          disabled={editMode}
+                        />
+                      );
                     }}
                   />
                 </div>

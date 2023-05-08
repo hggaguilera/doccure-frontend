@@ -3,7 +3,7 @@
 import React from "react";
 import Slider from "react-slick";
 
-import { useGetDoctorsQuery } from "../../store/services/doctor";
+import { useGetDoctorsBasicInfoQuery } from "../../store/services/doctor";
 
 import profiles from "../../libs/doctors";
 
@@ -36,7 +36,7 @@ const settings = {
 };
 
 function OurDoctors() {
-  const { data } = useGetDoctorsQuery();
+  const { data } = useGetDoctorsBasicInfoQuery();
 
   return (
     <section id="our-doctors" className="doctors-col">
@@ -52,7 +52,7 @@ function OurDoctors() {
             <div className="doctor-slider slider slick-initialized slick-slider">
               <Slider {...settings}>
                 {data?.map((doctor) => {
-                  const { prefix, firstName, lastName, specializations, email } = doctor;
+                  const { prefix, firstName, lastName, specialty, email } = doctor;
 
                   return (
                     <div key={email} className="profile-widget">
@@ -68,7 +68,7 @@ function OurDoctors() {
                           {firstName} {lastName}
                         </h3>
                         <p className="speciality">
-                          {prefix} - {specializations[specializations.length - 1]}
+                          {prefix} - {specialty}
                         </p>
                       </div>
                     </div>
