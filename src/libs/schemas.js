@@ -20,6 +20,20 @@ export const contactUsSchema = yup.object().shape({
   comments: yup.string().required("Escriba su consulta o comentario"),
 });
 
+export const passwordSchema = yup.object().shape({
+  password: yup
+    .string()
+    .required("Este campo es requerido")
+    .min(8, "La contraseña debe ser de al menos 8 caracteres")
+    .max(16, "La contraseña no debe de exceder los 16 caracteres"),
+  confirmPassword: yup
+    .string()
+    .required("Este campo es requerido")
+    .min(8, "La contraseña debe ser de al menos 8 caracteres")
+    .max(16, "La contraseña no debe de exceder los 16 caracteres")
+    .oneOf([yup.ref("password")], "Las contraseñas no son iguales"),
+});
+
 export const loginSchema = yup.object().shape({
   username: yup
     .string()

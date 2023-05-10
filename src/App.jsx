@@ -20,6 +20,7 @@ import Patient from "./pages/admin/patient";
 
 // Auth
 import Login from "./pages/auth/login";
+import Confirm from "./pages/auth/confirm";
 
 function App() {
   // Tooltips
@@ -34,6 +35,7 @@ function App() {
       <Route path="/terms" exact element={<TermsAndConditions />} />
       <Route path="/privacy-policy" exact element={<PrivacyPolicy />} />
       <Route path="/auth/login" exact element={<Login />} />
+      <Route path="/auth/confirm" exact element={<Confirm />} />
       <Route element={<ProtectedRoute />}>
         <Route path="/admin" exact element={<Dashboard />} />
         <Route path="/admin/appointments" exact element={<Appointments />} />

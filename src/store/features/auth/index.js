@@ -7,6 +7,7 @@ const baseUrl = import.meta.env.VITE_API_BASE_URL;
 const initialState = {
   loading: false,
   userInfo: null,
+  message: null,
   error: null,
 };
 
@@ -32,6 +33,28 @@ export const login = createAsyncThunk("auth/login", async (payload, { rejectWith
   }
 });
 
+export const user = createAsyncThunk("auth/user", async (payload, { rejectWithValue }) => {
+  try {
+    const data = { ...payload };
+    delete data.token;
+
+    const response = await fetch(`${baseUrl}/auth/user`, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${payload.token}` },
+    });
+
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+
+    const result = await response.json();
+    return result;
+  } catch (err) {
+    return rejectWithValue(err.message);
+  }
+});
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -49,6 +72,19 @@ const authSlice = createSlice({
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error || action.payload || "Failed to Login";
+      });
+    builder
+      .addCase(user.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(user.fulfilled, (state, action) => {
+        state.loading = false;
+        state.message = action.payload;
+      })
+      .addCase(user.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error || action.payload || "Failed to update password";
       });
   },
 });
