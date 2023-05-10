@@ -15,7 +15,7 @@ import "dayjs/locale/es";
 
 // Custom Components
 import Layout from "@/components/layout/admin";
-import Input from "@/components/forms/new-patient/input";
+import Input from "@/components/input";
 
 // Helpers
 import { patientSchema } from "@/libs/schemas";

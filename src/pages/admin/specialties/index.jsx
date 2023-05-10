@@ -1,15 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import { Table, Switch } from "antd";
-import { useNavigate, Link } from "react-router-dom";
 
 // Custom Components
 import Layout from "../../../components/layout/admin";
+import SpecialtyModal from "../forms/specialty";
 
-import { useGetSpecialtiesQuery } from "@/store/services/specialty";
+import { useGetSpecialtiesQuery, useUpdateSpecialtyMutation } from "@/store/services/specialty";
 
 function Specialties() {
+  const [show, setShow] = useState(false);
+  const [editMode, setEditMode] = useState(false);
+  const [specialtyId, setSpecialtyId] = useState(null);
+
   const { data } = useGetSpecialtiesQuery();
-  const navigate = useNavigate();
+  const [updateSpecialty] = useUpdateSpecialtyMutation();
+
+  const handleEditMode = (id) => {
+    setSpecialtyId(id);
+    setEditMode(true);
+    setShow(true);
+  };
+
+  const handleNewMode = () => {
+    setSpecialtyId(null);
+    setEditMode(false);
+    setShow(true);
+  };
+
+  const handleStatusUpdate = async (id, checked) => {
+    await updateSpecialty({ id, body: { status: checked ? "active" : "inactive" } }).unwrap();
+  };
 
   const columns = [
     {
@@ -24,7 +44,13 @@ function Specialties() {
     {
       title: "Estado",
       dataIndex: "status",
-      render: (text) => <Switch className="custom-switch" checked={text === "active"} />,
+      render: (text, record) => (
+        <Switch
+          className="custom-switch"
+          checked={text === "active"}
+          onChange={async (checked) => handleStatusUpdate(record.id, checked)}
+        />
+      ),
     },
     {
       title: "Acciones",
@@ -32,7 +58,7 @@ function Specialties() {
         <button
           type="button"
           className="btn btn-outline-success"
-          onClick={() => navigate(`/admin/specialties/edit/${record.id}`)}
+          onClick={() => handleEditMode(record.id)}
         >
           <i className="fe fe-pencil" /> Editar
         </button>
@@ -41,9 +67,9 @@ function Specialties() {
   ];
 
   const renderActionButton = () => (
-    <Link className="btn btn-primary float-end mt-2" to="new">
+    <button type="button" className="btn btn-primary float-end mt-2" onClick={handleNewMode}>
       Agregar Especialidad
-    </Link>
+    </button>
   );
 
   return (
@@ -72,6 +98,7 @@ function Specialties() {
           </div>
         </div>
       </div>
+      <SpecialtyModal show={show} setShow={setShow} specialtyId={specialtyId} editMode={editMode} />
     </Layout>
   );
 }

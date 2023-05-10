@@ -14,6 +14,13 @@ function servicesFormattedData(data) {
   }));
 }
 
+function specialtiesFormattedData(data) {
+  return data?.map((item) => ({
+    value: item.id,
+    label: item.specialtyName,
+  }));
+}
+
 /**
  * It takes a date and time and returns a datetime object
  * @param date - The date object that you want to convert to a datetime object
@@ -44,6 +51,21 @@ function buildAppointmentPayload(data) {
     doctor: data.doctorName,
     service: data.service,
     date: getDateTimeFromDateAndTime(data.date, data.time),
+  };
+}
+
+function buildSpecialtyUpdatePayload(data) {
+  return {
+    specialtyName: data.name,
+    specialtyDescription: data.description,
+  };
+}
+
+function buildServiceUpdatePayload(data) {
+  return {
+    ...data,
+    serviceName: data.name,
+    serviceDescription: data.description,
   };
 }
 
@@ -107,4 +129,7 @@ export {
   calculateAge,
   formattedFullAddress,
   formattedPhoneNumber,
+  buildSpecialtyUpdatePayload,
+  specialtiesFormattedData,
+  buildServiceUpdatePayload,
 };

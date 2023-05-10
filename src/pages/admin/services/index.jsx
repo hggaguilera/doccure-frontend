@@ -1,15 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import { Table, Switch } from "antd";
-import { useNavigate, Link } from "react-router-dom";
 
 // Custom Components
 import Layout from "../../../components/layout/admin";
+import ServiceModal from "../forms/service";
 
-import { useGetServicesQuery } from "@/store/services/service";
+import { useGetServicesQuery, useUpdateServiceMutation } from "@/store/services/service";
 
 function Services() {
+  const [show, setShow] = useState(false);
+  const [editMode, setEditMode] = useState(false);
+  const [serviceId, setServiceId] = useState(null);
+
   const { data } = useGetServicesQuery();
-  const navigate = useNavigate();
+  const [updateService] = useUpdateServiceMutation();
+
+  const handleEditMode = (id) => {
+    setServiceId(id);
+    setEditMode(true);
+    setShow(true);
+  };
+
+  const handleNewMode = () => {
+    setServiceId(null);
+    setEditMode(false);
+    setShow(true);
+  };
+
+  const handleStatusUpdate = async (id, checked) => {
+    await updateService({ id, body: { status: checked ? "active" : "inactive" } }).unwrap();
+  };
 
   const columns = [
     {
@@ -29,7 +49,13 @@ function Services() {
     {
       title: "Estado",
       dataIndex: "status",
-      render: (text) => <Switch className="custom-switch" checked={text === "active"} />,
+      render: (text, record) => (
+        <Switch
+          className="custom-switch"
+          checked={text === "active"}
+          onChange={async (checked) => handleStatusUpdate(record.id, checked)}
+        />
+      ),
     },
     {
       title: "Acciones",
@@ -37,7 +63,7 @@ function Services() {
         <button
           type="button"
           className="btn btn-outline-success"
-          onClick={() => navigate(`/admin/services/edit/${record.id}`)}
+          onClick={() => handleEditMode(record.id)}
         >
           <i className="fe fe-pencil" /> Editar
         </button>
@@ -46,9 +72,9 @@ function Services() {
   ];
 
   const renderActionButton = () => (
-    <Link className="btn btn-primary float-end mt-2" to="new">
+    <button type="button" className="btn btn-primary float-end mt-2" onClick={handleNewMode}>
       Agregar Servicio
-    </Link>
+    </button>
   );
 
   return (
@@ -80,6 +106,7 @@ function Services() {
           </div>
         </div>
       </div>
+      <ServiceModal show={show} setShow={setShow} serviceId={serviceId} editMode={editMode} />
     </Layout>
   );
 }

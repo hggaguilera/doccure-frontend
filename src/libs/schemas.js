@@ -66,3 +66,15 @@ export const patientSchema = yup.object().shape({
     zipCode: yup.string(),
   }),
 });
+
+export const specialtySchema = yup.object().shape({
+  name: yup.string().required("Este campo es requerido"),
+  description: yup.string().required("Este campo es requerido"),
+});
+
+export const serviceSchema = yup.object().shape({
+  serviceName: yup.string().required("Este campo es requerido"),
+  serviceDescription: yup.string().required("Este campo es requerido"),
+  specialtyId: yup.string().required("Este campo es requerido"),
+  price: yup.number().required("Este campo es requerido"),
+});

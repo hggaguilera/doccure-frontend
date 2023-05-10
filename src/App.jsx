@@ -16,9 +16,11 @@ import Dashboard from "./pages/admin/dashboard";
 import Appointments from "./pages/admin/appointments";
 import Doctors from "./pages/admin/doctors";
 import Patients from "./pages/admin/patients";
-import Patient from "./pages/admin/patient";
 import Specialties from "./pages/admin/specialties";
 import Services from "./pages/admin/services";
+
+// Admin Forms
+import Patient from "./pages/admin/forms/patient";
 
 // Auth
 import Login from "./pages/auth/login";
