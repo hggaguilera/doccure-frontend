@@ -1,10 +1,20 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import Cookies from "js-cookie";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
+const token = Cookies.get("token");
 
 export const appointmentApi = createApi({
   reducerPath: "appointmentApi",
-  baseQuery: fetchBaseQuery({ baseUrl }),
+  baseQuery: fetchBaseQuery({
+    baseUrl,
+    prepareHeaders: (headers, { endpoint }) => {
+      if (token && endpoint === "getAppointments") {
+        headers.set("authorization", `Bearer ${token}`);
+      }
+      return headers;
+    },
+  }),
   endpoints: (builder) => ({
     addAppointment: builder.mutation({
       query: (body) => ({ url: "/appointments", method: "POST", body }),
@@ -18,7 +28,7 @@ export const appointmentApi = createApi({
           : ["Appointment"],
     }),
     getAppointmentsDates: builder.query({
-      query: () => "/appointments/dates",
+      query: () => ({ url: "/appointments/dates", headers: new Headers() }),
       providesTags: (result) =>
         result
           ? [...result.map(({ id }) => ({ type: "Appointment", id })), "Appointment"]

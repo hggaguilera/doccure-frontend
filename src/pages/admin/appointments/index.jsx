@@ -59,8 +59,20 @@ function Appointments() {
     },
   ];
 
+  const renderActionButton = () => (
+    <Link className="btn btn-primary float-end mt-2" to="new">
+      Agendar Cita
+    </Link>
+  );
+
   return (
-    <Layout pageTitle="Citas" mainPage="Tablero" mainPageUrl="/admin" currentPage="Citas">
+    <Layout
+      pageTitle="Citas"
+      mainPage="Dashboard"
+      mainPageUrl="/admin"
+      currentPage="Citas"
+      actionButton={renderActionButton()}
+    >
       <div className="row">
         <div className="col-md-12">
           <div className="card">
@@ -72,7 +84,10 @@ function Appointments() {
                   columns={columns}
                   dataSource={data}
                   rowKey={(record) => record.id}
-                  pagination={{ total: data?.length, showSizeChanger: true }}
+                  pagination={{
+                    total: data?.length,
+                    showTotal: (total) => `${total} Servicios en Total`,
+                  }}
                 />
               </div>
             </div>

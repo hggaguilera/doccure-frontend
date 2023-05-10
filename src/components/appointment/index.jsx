@@ -11,7 +11,7 @@ import {
   useGetAppointmentsDatesQuery,
 } from "../../store/services/appointment";
 import { useGetDoctorsBasicInfoQuery } from "../../store/services/doctor";
-import { useGetServicesQuery } from "../../store/services/service";
+import { useGetServicesByCategoryQuery } from "../../store/services/service";
 
 // Locale
 import "dayjs/locale/es";
@@ -24,7 +24,7 @@ function Appointment() {
   const [selectedDoctor, setSelectedDoctor] = useState();
   const [addAppointment, { isLoading }] = useAddAppointmentMutation();
   const { data: doctors } = useGetDoctorsBasicInfoQuery();
-  const { data: specialties } = useGetServicesQuery();
+  const { data: specialties } = useGetServicesByCategoryQuery();
   const { data: appointments } = useGetAppointmentsDatesQuery();
 
   const {

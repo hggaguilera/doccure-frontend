@@ -22,7 +22,7 @@ function Doctors() {
       render: (text, record) => (
         <h2 className="table-avatar mb-0">
           <Link to="/admin/profile" className="avatar avatar-sm me-2">
-            <img alt={`foto de ${text}`} src={profiles[record.email].thumb} />
+            <img alt={`foto de ${text}`} src={profiles[record.email]?.thumb} />
           </Link>
           <Link to="/admin/profile">{`${record.firstName} ${record.lastName}`}</Link>
         </h2>
@@ -54,8 +54,20 @@ function Doctors() {
     },
   ];
 
+  const renderActionButton = () => (
+    <Link className="btn btn-primary float-end mt-2" to="new">
+      Agregar Doctor
+    </Link>
+  );
+
   return (
-    <Layout pageTitle="Doctores" mainPage="Tablero" mainPageUrl="/admin" currentPage="Doctores">
+    <Layout
+      pageTitle="Doctores"
+      mainPage="Dashboard"
+      mainPageUrl="/admin"
+      currentPage="Doctores"
+      actionButton={renderActionButton()}
+    >
       <div className="row">
         <div className="col-md-12">
           <div className="card">
@@ -67,7 +79,7 @@ function Doctors() {
                   columns={columns}
                   dataSource={data}
                   rowKey={(record) => record.id}
-                  pagination={{ total: data?.length, showSizeChanger: true }}
+                  pagination={false}
                 />
               </div>
             </div>

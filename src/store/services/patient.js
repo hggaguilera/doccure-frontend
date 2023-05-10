@@ -29,7 +29,16 @@ export const patientApi = createApi({
       query: (body) => ({ url: "/patients", method: "POST", body }),
       invalidatesTags: ["Patient"],
     }),
+    updatePatient: builder.mutation({
+      query: ({ id, body }) => ({ url: `/patients/${id}`, method: "PATH", body }),
+      invalidatesTags: ["Patient"],
+    }),
   }),
 });
 
-export const { useGetPatientsQuery, useGetPatientByIdQuery, useAddPatientMutation } = patientApi;
+export const {
+  useGetPatientsQuery,
+  useGetPatientByIdQuery,
+  useAddPatientMutation,
+  useUpdatePatientMutation,
+} = patientApi;

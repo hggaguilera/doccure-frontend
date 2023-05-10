@@ -17,6 +17,8 @@ import Appointments from "./pages/admin/appointments";
 import Doctors from "./pages/admin/doctors";
 import Patients from "./pages/admin/patients";
 import Patient from "./pages/admin/patient";
+import Specialties from "./pages/admin/specialties";
+import Services from "./pages/admin/services";
 
 // Auth
 import Login from "./pages/auth/login";
@@ -39,7 +41,8 @@ function App() {
       <Route element={<ProtectedRoute />}>
         <Route path="/admin" exact element={<Dashboard />} />
         <Route path="/admin/appointments" exact element={<Appointments />} />
-        <Route path="/admin/specialties" exact element={<Dashboard />} />
+        <Route path="/admin/specialties" exact element={<Specialties />} />
+        <Route path="/admin/services" exact element={<Services />} />
         <Route path="/admin/doctors" exact element={<Doctors />} />
         <Route path="/admin/patients" exact element={<Patients />} />
         <Route path="/admin/patients/new" exact element={<Patient />} />

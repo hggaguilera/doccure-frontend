@@ -31,14 +31,14 @@ function Sidebar() {
                   <i className="fe fe-home" /> <span>Dashboard</span>
                 </Link>
               </li>
-              <li className={pathname.includes("appointments") ? "active" : ""}>
-                <Link to="/admin/appointments">
-                  <i className="fe fe-layout" /> <span>Citas</span>
-                </Link>
-              </li>
               <li className={pathname.includes("specialties") ? "active" : ""}>
                 <Link to="/admin/specialties">
                   <i className="fe fe-users" /> <span>Especialidades</span>
+                </Link>
+              </li>
+              <li className={pathname.includes("services") ? "active" : ""}>
+                <Link to="/admin/services">
+                  <i className="fe fe-document" /> <span>Servicios</span>
                 </Link>
               </li>
               <li className={pathname.includes("doctors") ? "active" : ""}>
@@ -49,6 +49,11 @@ function Sidebar() {
               <li className={pathname.includes("patients") ? "active" : ""}>
                 <Link to="/admin/patients">
                   <i className="fe fe-user" /> <span>Pacientes</span>
+                </Link>
+              </li>
+              <li className={pathname.includes("appointments") ? "active" : ""}>
+                <Link to="/admin/appointments">
+                  <i className="fe fe-layout" /> <span>Citas</span>
                 </Link>
               </li>
             </ul>

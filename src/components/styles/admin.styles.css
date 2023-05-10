@@ -3387,13 +3387,13 @@ html.menu-opened body {
   padding: 0 20px;
 }
 .sidebar-menu li a:hover {
-  color: #0ce0ff;
+  color: #2e58ff;
 }
 .sidebar-menu > ul > li > a:hover {
-  color: #0ce0ff;
+  color: #2e58ff;
 }
 .sidebar-menu li.active > a {
-  color: #0ce0ff;
+  color: #2e58ff;
   position: relative;
 }
 .menu-title {
@@ -7219,4 +7219,11 @@ body.darkmode {
 .section-group .form-group.error .ant-select .ant-select-selector,
 .section-group .form-group.error .intl-tel-input input[type="tel"] {
   border-color: red;
+}
+.card-body .table-responsive .ant-table .ant-table-cell .btn {
+  padding: 2px 20px;
+}
+.card-body .table-responsive .ant-pagination .ant-pagination-total-text {
+  height: 38px;
+  line-height: 38px;
 }

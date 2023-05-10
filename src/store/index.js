@@ -1,7 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import authReducer from "./features/auth";
-import { doctorApi, appointmentApi, serviceApi, patientApi, countryApi } from "./services";
+import {
+  doctorApi,
+  appointmentApi,
+  serviceApi,
+  patientApi,
+  countryApi,
+  specialtyApi,
+} from "./services";
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +18,7 @@ export const store = configureStore({
     [serviceApi.reducerPath]: serviceApi.reducer,
     [patientApi.reducerPath]: patientApi.reducer,
     [countryApi.reducerPath]: countryApi.reducer,
+    [specialtyApi.reducerPath]: specialtyApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -19,6 +27,7 @@ export const store = configureStore({
       serviceApi.middleware,
       patientApi.middleware,
       countryApi.middleware,
+      specialtyApi.middleware,
     ),
 });
 

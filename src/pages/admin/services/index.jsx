@@ -1,55 +1,31 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { Table, Switch } from "antd";
-
-// Locale
-import "dayjs/locale/es";
+import { useNavigate, Link } from "react-router-dom";
 
 // Custom Components
 import Layout from "../../../components/layout/admin";
 
-// Helpers
-import { calculateAge, formattedFullAddress, formattedPhoneNumber } from "@/libs/helpers";
+import { useGetServicesQuery } from "@/store/services/service";
 
-import { useGetPatientsQuery } from "@/store/services/patient";
-
-function Patients() {
-  const { data } = useGetPatientsQuery();
+function Services() {
+  const { data } = useGetServicesQuery();
   const navigate = useNavigate();
 
   const columns = [
     {
-      title: "Nombre de el Paciente",
-      dataIndex: "name",
-      render: (_, record) => `${record.firstName} ${record.lastName}`,
+      title: "Servicio",
+      dataIndex: "serviceName",
     },
     {
-      title: "Edad",
-      dataIndex: "dateOfBirth",
-      render: (text) => calculateAge(text),
-    },
-    {
-      title: "Direccion",
-      dataIndex: "addresses",
+      title: "Descripcion",
+      dataIndex: "serviceDescription",
       ellipsis: true,
-      render: (_, record) => {
-        return formattedFullAddress(record.addresses);
-      },
     },
     {
-      title: "Numero de Telefono",
-      dataIndex: "phoneNumbers",
-      render: (_, record) => {
-        const formattedNumber = formattedPhoneNumber(record.phoneNumbers);
-
-        return <a href={`tel:${formattedNumber.fullNumber}`}>{formattedNumber.phoneNumber}</a>;
-      },
+      title: "Precio (En Dolares)",
+      dataIndex: "price",
+      render: (text) => `$ ${text}`,
     },
-    {
-      title: "Correo Electronico",
-      dataIndex: "email",
-    },
-
     {
       title: "Estado",
       dataIndex: "status",
@@ -61,9 +37,9 @@ function Patients() {
         <button
           type="button"
           className="btn btn-outline-success"
-          onClick={() => navigate(`/admin/patients/edit/${record.id}`)}
+          onClick={() => navigate(`/admin/services/edit/${record.id}`)}
         >
-          Editar
+          <i className="fe fe-pencil" /> Editar
         </button>
       ),
     },
@@ -71,16 +47,16 @@ function Patients() {
 
   const renderActionButton = () => (
     <Link className="btn btn-primary float-end mt-2" to="new">
-      Agregar Paciente
+      Agregar Servicio
     </Link>
   );
 
   return (
     <Layout
-      pageTitle="Pacientes"
+      pageTitle="Servicios"
       mainPage="Dashboard"
       mainPageUrl="/admin"
-      currentPage="Pacientes"
+      currentPage="Servicios"
       actionButton={renderActionButton()}
     >
       <div className="row">
@@ -108,4 +84,4 @@ function Patients() {
   );
 }
 
-export default Patients;
+export default Services;

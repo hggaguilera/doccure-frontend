@@ -109,7 +109,7 @@ function Patient({ editMode = false }) {
   return (
     <Layout
       pageTitle="Pacientes"
-      mainPage="Tablero"
+      mainPage="Dashboard"
       mainPageUrl="/admin"
       currentPage="Nuevo Paciente"
     >
