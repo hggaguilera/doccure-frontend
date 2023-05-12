@@ -30,7 +30,7 @@ export const patientApi = createApi({
       invalidatesTags: ["Patient"],
     }),
     updatePatient: builder.mutation({
-      query: ({ id, body }) => ({ url: `/patients/${id}`, method: "PATH", body }),
+      query: ({ id, body }) => ({ url: `/patients/${id}`, method: "PATCH", body }),
       invalidatesTags: ["Patient"],
     }),
   }),

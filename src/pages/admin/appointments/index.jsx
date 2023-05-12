@@ -86,7 +86,7 @@ function Appointments() {
                   rowKey={(record) => record.id}
                   pagination={{
                     total: data?.length,
-                    showTotal: (total) => `${total} Servicios en Total`,
+                    showTotal: (total) => `${total} Citas en Total`,
                   }}
                 />
               </div>

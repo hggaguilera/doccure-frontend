@@ -18,82 +18,51 @@ import Layout from "@/components/layout/admin";
 import Input from "@/components/input";
 
 // Helpers
-import { patientSchema } from "@/libs/schemas";
+import { doctorSchema } from "@/libs/schemas";
 import {
-  useAddPatientMutation,
-  useGetCountriesQuery,
-  useGetPatientByIdQuery,
-  useUpdatePatientMutation,
+  useAddDoctorMutation,
+  useGetDoctorByIdQuery,
+  useGetSpecialtiesQuery,
+  useUpdateDoctorMutation,
 } from "@/store/services";
-import { baseCountryData, patientInitialValues } from "@/libs/init-state";
+import { doctorInitialValues } from "@/libs/init-state";
+import { specialtiesFormattedData } from "@/libs/helpers";
 
-const contactType = [
+const adminType = [
   {
-    value: "yes",
-    label: "Primario",
+    value: true,
+    label: "Administrador",
   },
   {
-    value: "no",
-    label: "Secundario",
+    value: false,
+    label: "Temporal",
   },
 ];
 
-const numberType = [
-  {
-    value: "mobile",
-    label: "Movil",
-  },
-  {
-    value: "home",
-    label: "Casa",
-  },
-  {
-    value: "work",
-    label: "Trabajo",
-  },
-  {
-    value: "other",
-    label: "Otro",
-  },
-];
-
-function Patient({ editMode = false }) {
+function Doctor({ editMode = false }) {
   const navigate = useNavigate();
-  const { patientId } = useParams();
+  const { doctorId } = useParams();
   const [initialData, setInitialData] = useState();
-  const [defaultCountry, setDefaultCountry] = useState();
-  const { data: patient, isLoading } = useGetPatientByIdQuery(patientId || skipToken);
-  const { data: countries, isLoading: isLoadingCountriesList } = useGetCountriesQuery();
-  const [addPatient, { isLoading: isSavingPatient }] = useAddPatientMutation();
-  const [updatePatient, { isLoading: isUpdatingPatient }] = useUpdatePatientMutation();
+  const { data: doctor, isLoading } = useGetDoctorByIdQuery(doctorId || skipToken);
+  const { data: specialties } = useGetSpecialtiesQuery();
+  const [addDoctor, { isLoading: isSavingDoctor }] = useAddDoctorMutation();
+  const [updateDoctor, { isLoading: isUpdatingDoctor }] = useUpdateDoctorMutation();
+
+  const formattedData = specialtiesFormattedData(specialties);
 
   useEffect(() => {
     const setInitialValues = () => {
       if (editMode && !isLoading) {
-        const data = { ...patient };
-
-        if (!patient?.address) {
-          data.address = { countryId: baseCountryData.value };
-        }
-        setInitialData(data);
-
-        if (!isLoadingCountriesList) {
-          const country = countries.find((item) => item.value === data.address.countryId);
-          setDefaultCountry(country);
-        }
+        setInitialData(doctor);
         return;
       }
 
-      if (!isLoadingCountriesList) {
-        const initialState = patientInitialValues();
-        setInitialData(initialState);
-        const country = countries.find((item) => item.value === initialState.address.countryId);
-        setDefaultCountry(country);
-      }
+      const initialState = doctorInitialValues();
+      setInitialData(initialState);
     };
 
     setInitialValues();
-  }, [editMode, isLoading, patient, isLoadingCountriesList, countries]);
+  }, [editMode, isLoading, doctor]);
 
   const {
     register,
@@ -103,7 +72,7 @@ function Patient({ editMode = false }) {
     reset,
     formState: { isValid, errors },
   } = useForm({
-    resolver: yupResolver(patientSchema),
+    resolver: yupResolver(doctorSchema),
   });
 
   useEffect(() => {
@@ -111,7 +80,7 @@ function Patient({ editMode = false }) {
   }, [reset, initialData]);
 
   const disabledDate = (current) => {
-    return current && current.year() > dayjs().year() - 3;
+    return current && current.year() > dayjs().year() - 22;
   };
 
   const formatDate = (date) => {
@@ -124,27 +93,27 @@ function Patient({ editMode = false }) {
 
   const onSubmit = (values) => {
     if (editMode) {
-      updatePatient({
-        id: patientId,
+      updateDoctor({
+        id: doctorId,
         body: { ...values, dateOfBirth: formatDate(values.dateOfBirth) },
       })
         .unwrap()
-        .then(() => navigate("/admin/patients"))
+        .then(() => navigate("/admin/doctors"))
         .catch((error) => console.log("rejected", error));
       return;
     }
-    addPatient({ ...values, dateOfBirth: formatDate(values.dateOfBirth) })
+    addDoctor({ ...values, dateOfBirth: formatDate(values.dateOfBirth) })
       .unwrap()
-      .then(() => navigate("/admin/patients"))
+      .then(() => navigate("/admin/doctors"))
       .catch((error) => console.log("rejected", error));
   };
 
   return (
     <Layout
-      pageTitle="Pacientes"
+      pageTitle="Doctores"
       mainPage="Dashboard"
       mainPageUrl="/admin"
-      currentPage="Nuevo Paciente"
+      currentPage="Nuevo Doctor"
     >
       {Object.keys(errors).length ? (
         <Alert variant="danger" dismissible>
@@ -159,13 +128,13 @@ function Patient({ editMode = false }) {
             <div className="card-header">
               <div className="row">
                 <div className="col-auto col-sm-7">
-                  <h5 className="headline">Informacion Personal</h5>
-                  <h6 className="sub-title">Campos Requeridos</h6>
+                  <h5 className="headline">Informacion</h5>
+                  <h6 className="sub-title">Datos Personales</h6>
                 </div>
               </div>
             </div>
             <div className="row">
-              <div className="col-12 col-md-6 col-lg-4">
+              <div className="col-12 col-sm-6 col-md-4 col-lg-3">
                 <Input
                   name="firstName"
                   label="Primer Nombre"
@@ -176,7 +145,7 @@ function Patient({ editMode = false }) {
                   error={errors?.firstName?.message}
                 />
               </div>
-              <div className="col-12 col-md-6 col-lg-4">
+              <div className="col-12 col-sm-6 col-md-4 col-lg-3">
                 <Input
                   name="middleName"
                   label="Segundo Nombre"
@@ -187,7 +156,7 @@ function Patient({ editMode = false }) {
                   error={errors?.middleName?.message}
                 />
               </div>
-              <div className="col-12 col-md-6 col-lg-4">
+              <div className="col-12 col-sm-6 col-md-4 col-lg-3">
                 <Input
                   name="lastName"
                   label="Apellido"
@@ -198,7 +167,7 @@ function Patient({ editMode = false }) {
                   error={errors?.lastName?.message}
                 />
               </div>
-              <div className="col-12 col-md-6 col-lg-4">
+              <div className="col-12 col-sm-6 col-md-4 col-lg-3">
                 <div className={errors?.dateOfBirth?.message ? "form-group error" : "form-group"}>
                   <label htmlFor="dateOfBirth">Fecha de Nacimiento</label>
                   <Controller
@@ -212,9 +181,9 @@ function Patient({ editMode = false }) {
                           showToday={false}
                           showNow={false}
                           showTime={false}
-                          disabled={editMode}
+                          disabled={!!getValues("middleName") && editMode}
                           disabledDate={disabledDate}
-                          defaultPickerValue={dayjs("01/01/2020")}
+                          defaultPickerValue={dayjs("01/01/2001")}
                           value={field.value ? dayjs(field?.value) : null}
                           locale={locale}
                           format="D [de] MMMM [de] YYYY"
@@ -224,7 +193,16 @@ function Patient({ editMode = false }) {
                   />
                 </div>
               </div>
-              <div className="col-12 col-md-6 col-lg-4">
+            </div>
+            <div className="card-header">
+              <div className="row">
+                <div className="col-auto col-sm-7">
+                  <h6 className="sub-title">Contacto</h6>
+                </div>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-12 col-sm-6 col-md-4 col-lg-3">
                 <Input
                   name="email"
                   label="Correo"
@@ -234,53 +212,7 @@ function Patient({ editMode = false }) {
                   error={errors?.email?.message}
                 />
               </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-12">
-          <div className="section-group">
-            <div className="card-header">
-              <div className="row">
-                <div className="col-auto col-sm-7">
-                  <h5 className="headline">Informacion Secundaria</h5>
-                  <h6 className="sub-title">Numeros de Teléfono</h6>
-                </div>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-12 col-sm-4">
-                <div className="form-group">
-                  <label htmlFor="phone.isPrimary">Tipo de Contacto</label>
-                  <Controller
-                    name="phone.isPrimary"
-                    control={control}
-                    render={({ field }) => {
-                      return (
-                        <Select
-                          {...field}
-                          options={contactType}
-                          defaultValue="yes"
-                          disabled={editMode}
-                        />
-                      );
-                    }}
-                  />
-                </div>
-              </div>
-              <div className="col-12 col-sm-4">
-                <div className="form-group">
-                  <label htmlFor="phone.type">Tipo de Número de Teléfono</label>
-                  <Controller
-                    name="phone.type"
-                    control={control}
-                    render={({ field }) => {
-                      return <Select {...field} options={numberType} defaultValue="mobile" />;
-                    }}
-                  />
-                </div>
-              </div>
-              <div className="col-12 col-sm-4">
+              <div className="col-12 col-sm-6 col-md-4 col-lg-3">
                 <div
                   className={
                     errors?.phone?.phoneNumber?.message ? "form-group error" : "form-group"
@@ -298,8 +230,8 @@ function Patient({ editMode = false }) {
                           fieldName="phone"
                           placeholder="ej. 86433047"
                           preferredCountries={["bz", "gt", "sv", "hn", "ni", "cr", "pa"]}
-                          defaultCountry={defaultCountry?.country_abbr.toLowerCase()}
-                          value={value?.phoneNumber || ""}
+                          defaultCountry="ni"
+                          value={value?.phoneNumber}
                           inputClassName="phone-number"
                           onPhoneNumberChange={(_, fullNumber, countryData) =>
                             onChange({
@@ -317,35 +249,12 @@ function Patient({ editMode = false }) {
             <div className="card-header">
               <div className="row">
                 <div className="col-auto col-sm-7">
-                  <h6 className="sub-title">Direcciones</h6>
+                  <h6 className="sub-title">Direccion</h6>
                 </div>
               </div>
             </div>
-
             <div className="row">
-              <div className="col-12 col-md-6 col-lg-4">
-                <div className="form-group">
-                  <label htmlFor="address.countryId">Pais</label>
-                  <Controller
-                    name="address.countryId"
-                    control={control}
-                    render={({ field }) => {
-                      return (
-                        <Select
-                          {...field}
-                          showSearch
-                          optionFilterProp="children"
-                          filterOption={(input, option) =>
-                            (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
-                          }
-                          options={countries}
-                        />
-                      );
-                    }}
-                  />
-                </div>
-              </div>
-              <div className="col-12 col-md-6 col-lg-4">
+              <div className="col-12 col-sm-6 col-md-4 col-lg-3">
                 <Input
                   name="address.addressLineOne"
                   label="Direccion"
@@ -355,7 +264,7 @@ function Patient({ editMode = false }) {
                   error={errors?.address?.addressLineOne?.message}
                 />
               </div>
-              <div className="col-12 col-md-6 col-lg-4">
+              <div className="col-12 col-sm-6 col-md-4 col-lg-3">
                 <Input
                   name="address.addressLineTwo"
                   label="Direccion Complementaria"
@@ -364,7 +273,7 @@ function Patient({ editMode = false }) {
                   register={register}
                 />
               </div>
-              <div className="col-12 col-md-6 col-lg-4">
+              <div className="col-12 col-sm-6 col-md-4 col-lg-3">
                 <Input
                   name="address.townOrMunicipality"
                   label="Provincia/Municipio"
@@ -374,7 +283,7 @@ function Patient({ editMode = false }) {
                   error={errors?.address?.townOrMunicipality?.message}
                 />
               </div>
-              <div className="col-12 col-md-6 col-lg-4">
+              <div className="col-12 col-sm-6 col-md-4 col-lg-3">
                 <Input
                   name="address.stateOrCity"
                   label="Ciudad/Estado"
@@ -384,7 +293,7 @@ function Patient({ editMode = false }) {
                   error={errors?.address?.stateOrCity?.message}
                 />
               </div>
-              <div className="col-12 col-md-6 col-lg-4">
+              <div className="col-12 col-sm-6 col-md-4 col-lg-3">
                 <Input
                   name="address.zipCode"
                   label="Codigo Postal"
@@ -394,13 +303,66 @@ function Patient({ editMode = false }) {
                 />
               </div>
             </div>
+            <div className="card-header">
+              <div className="row">
+                <div className="col-auto col-sm-7">
+                  <h6 className="sub-title">Otros Datos</h6>
+                </div>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-12 col-sm-6 col-md-4 col-lg-3">
+                <Input
+                  name="prefix"
+                  label="Prefijo"
+                  placeholder="DMD"
+                  type="text"
+                  readOnly={editMode}
+                  register={register}
+                  error={errors?.prefix?.message}
+                />
+              </div>
+              <div className="col-12 col-sm-6 col-md-4 col-lg-3">
+                <div className="form-group">
+                  <label htmlFor="isSystemUser">Tipo de Usuario</label>
+                  <Controller
+                    name="isSystemUser"
+                    control={control}
+                    render={({ field }) => {
+                      return <Select {...field} options={adminType} defaultValue />;
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="col-12 col-sm-6 col-md-4 col-lg-3">
+                <div className="form-group">
+                  <label htmlFor="specialties">Especialidades</label>
+                  <Controller
+                    name="specialties"
+                    control={control}
+                    render={({ field }) => {
+                      return (
+                        <Select
+                          {...field}
+                          mode="multiple"
+                          allowClear
+                          showSearch
+                          options={formattedData}
+                          placeholder="Seleccione las Especialidades"
+                        />
+                      );
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div className="col-12">
           <button
             type="submit"
             className="btn btn-primary"
-            disabled={!isValid || isSavingPatient || isUpdatingPatient}
+            disabled={!isValid || isSavingDoctor || isUpdatingDoctor}
           >
             Guardar
           </button>
@@ -410,4 +372,4 @@ function Patient({ editMode = false }) {
   );
 }
 
-export default Patient;
+export default Doctor;

@@ -7206,6 +7206,14 @@ body.darkmode {
 .section-group .form-group .intl-tel-input input[type="tel"] {
   border: 1px solid #d9d9d9;
 }
+.section-group .form-group .ant-picker.ant-picker-disabled,
+.section-group .form-group .ant-select.ant-select-disabled .ant-select-selector {
+  background: #ffffff;
+}
+.section-group .form-group .ant-picker.ant-picker-disabled input,
+.section-group .form-group .ant-select.ant-select-disabled .ant-select-selector {
+  color: rgba(0, 0, 0, 0.88);
+}
 .section-group .form-group .intl-tel-input .flag-box {
   height: auto;
 }

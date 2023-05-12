@@ -43,28 +43,48 @@ export const loginSchema = yup.object().shape({
 });
 
 export const patientSchema = yup.object().shape({
-  id: yup.string(),
-  firstName: yup.string().required("Escriba el nombre del paciente"),
+  firstName: yup.string().required(),
   middleName: yup.string(),
-  lastName: yup.string().required("Escriba el apellido del paciente"),
-  dateOfBirth: yup.string().required("Elija la fecha de nacimiento del paciente"),
-  email: yup.string(),
+  lastName: yup.string().required(),
+  dateOfBirth: yup.string().required(),
+  email: yup.string().required(),
   phone: yup.object().shape({
     id: yup.string(),
     isPrimary: yup.string(),
     type: yup.string(),
     countryCode: yup.string(),
-    phoneNumber: yup.string().required("Escriba el numero de telefono del paciente"),
+    phoneNumber: yup.string().required(),
   }),
   address: yup.object().shape({
     id: yup.string(),
     countryId: yup.string(),
-    addressLineOne: yup.string().required("Escriba la direccion del paciente"),
+    addressLineOne: yup.string().required(),
     addressLineTwo: yup.string(),
-    stateOrCity: yup.string().required("Escriba la ciudad en la que reside"),
-    townOrMunicipality: yup.string().required("Escriba el municipio en el que reside"),
+    stateOrCity: yup.string().required(),
+    townOrMunicipality: yup.string().required(),
     zipCode: yup.string(),
   }),
+});
+export const doctorSchema = yup.object().shape({
+  firstName: yup.string().required(),
+  middleName: yup.string(),
+  lastName: yup.string().required(),
+  prefix: yup.string().required(),
+  dateOfBirth: yup.string().required(),
+  isSystemUser: yup.bool().required(),
+  email: yup.string().required(),
+  phone: yup.object().shape({
+    countryCode: yup.string(),
+    phoneNumber: yup.string().required(),
+  }),
+  address: yup.object().shape({
+    addressLineOne: yup.string().required(),
+    addressLineTwo: yup.string(),
+    stateOrCity: yup.string().required(),
+    townOrMunicipality: yup.string().required(),
+    zipCode: yup.string(),
+  }),
+  specialties: yup.array(yup.string()).min(1).required(),
 });
 
 export const specialtySchema = yup.object().shape({

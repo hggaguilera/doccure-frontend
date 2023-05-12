@@ -21,6 +21,7 @@ import Services from "./pages/admin/services";
 
 // Admin Forms
 import Patient from "./pages/admin/forms/patient";
+import Doctor from "./pages/admin/forms/doctor";
 
 // Auth
 import Login from "./pages/auth/login";
@@ -49,6 +50,8 @@ function App() {
         <Route path="/admin/patients" exact element={<Patients />} />
         <Route path="/admin/patients/new" exact element={<Patient />} />
         <Route path="/admin/patients/edit/:patientId" exact element={<Patient editMode />} />
+        <Route path="/admin/doctors/new" exact element={<Doctor />} />
+        <Route path="/admin/doctors/edit/:doctorId" exact element={<Doctor editMode />} />
       </Route>
     </Routes>
   );

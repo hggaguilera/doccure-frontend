@@ -11,15 +11,20 @@ import Layout from "../../../components/layout/admin";
 // Helpers
 import { calculateAge, formattedFullAddress, formattedPhoneNumber } from "@/libs/helpers";
 
-import { useGetPatientsQuery } from "@/store/services/patient";
+import { useGetPatientsQuery, useUpdatePatientMutation } from "@/store/services/patient";
 
 function Patients() {
   const { data } = useGetPatientsQuery();
+  const [updatePatient, { isLoading }] = useUpdatePatientMutation();
   const navigate = useNavigate();
+
+  const handleStatusUpdate = async (id, checked) => {
+    await updatePatient({ id, body: { status: checked ? "active" : "inactive" } }).unwrap();
+  };
 
   const columns = [
     {
-      title: "Nombre de el Paciente",
+      title: "Nombre del Paciente",
       dataIndex: "name",
       render: (_, record) => `${record.firstName} ${record.lastName}`,
     },
@@ -53,7 +58,13 @@ function Patients() {
     {
       title: "Estado",
       dataIndex: "status",
-      render: (text) => <Switch className="custom-switch" checked={text === "active"} />,
+      render: (text, record) => (
+        <Switch
+          className="custom-switch"
+          checked={text === "active"}
+          onChange={(checked) => handleStatusUpdate(record.id, checked)}
+        />
+      ),
     },
     {
       title: "Acciones",
@@ -62,15 +73,20 @@ function Patients() {
           type="button"
           className="btn btn-outline-success"
           onClick={() => navigate(`/admin/patients/edit/${record.id}`)}
+          disabled={isLoading}
         >
-          Editar
+          <i className="fe fe-pencil" /> Editar
         </button>
       ),
     },
   ];
 
   const renderActionButton = () => (
-    <Link className="btn btn-primary float-end mt-2" to="new">
+    <Link
+      className="btn btn-primary float-end mt-2"
+      to="new"
+      style={{ pointerEvents: isLoading ? "none" : "cursor" }}
+    >
       Agregar Paciente
     </Link>
   );
@@ -96,7 +112,7 @@ function Patients() {
                   rowKey={(record) => record.id}
                   pagination={{
                     total: data?.length,
-                    showTotal: (total) => `${total} Servicios en Total`,
+                    showTotal: (total) => `${total} Pacientes en Total`,
                   }}
                 />
               </div>
