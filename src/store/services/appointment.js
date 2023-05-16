@@ -9,7 +9,7 @@ export const appointmentApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl,
     prepareHeaders: (headers, { endpoint }) => {
-      if (token && endpoint === "getAppointments") {
+      if (token && (endpoint === "getAppointments" || endpoint === "getAppointmentById")) {
         headers.set("authorization", `Bearer ${token}`);
       }
       return headers;
@@ -34,8 +34,16 @@ export const appointmentApi = createApi({
           ? [...result.map(({ id }) => ({ type: "Appointment", id })), "Appointment"]
           : ["Appointment"],
     }),
+    getAppointmentById: builder.query({
+      query: (id) => `/appointments/${id}`,
+      providesTags: (result, error, id) => [{ type: "Appointment", id }],
+    }),
   }),
 });
 
-export const { useAddAppointmentMutation, useGetAppointmentsQuery, useGetAppointmentsDatesQuery } =
-  appointmentApi;
+export const {
+  useAddAppointmentMutation,
+  useGetAppointmentsQuery,
+  useGetAppointmentsDatesQuery,
+  useGetAppointmentByIdQuery,
+} = appointmentApi;

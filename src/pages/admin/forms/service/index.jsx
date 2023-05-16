@@ -58,8 +58,6 @@ function ServiceModal({ show, setShow, serviceId, editMode }) {
         values.oldSpecialtyId = initialData.specialtyId;
       }
 
-      // const payload = buildServiceUpdatePayload(values);
-
       updateService({ id: serviceId, body: values })
         .unwrap()
         .then(() => {
@@ -152,7 +150,7 @@ function ServiceModal({ show, setShow, serviceId, editMode }) {
                     placeholder="e.g. 100"
                     type="number"
                     register={register}
-                    error={errors?.number?.message}
+                    error={errors?.price?.message}
                   />
                 </div>
               </div>

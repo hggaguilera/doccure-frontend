@@ -98,3 +98,23 @@ export const serviceSchema = yup.object().shape({
   specialtyId: yup.string().required("Este campo es requerido"),
   price: yup.number().required("Este campo es requerido"),
 });
+
+export const invoiceSchema = yup.object().shape({
+  summary: yup.string(),
+  date: yup.string().required(),
+  tax: yup.number().required(),
+  personId: yup.string().required(),
+  appointmentId: yup.string().required(),
+  items: yup
+    .array(
+      yup.object().shape({
+        service: yup.string().required(),
+        quantity: yup.number().required(),
+        price: yup.number().required(),
+        total: yup.number(),
+      }),
+    )
+    .min(1)
+    .required(),
+  completeTotal: yup.number(),
+});

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Table, Switch } from "antd";
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
@@ -9,9 +9,17 @@ import profiles from "../../../libs/doctors";
 import "dayjs/locale/es";
 
 import { useGetAppointmentsQuery } from "../../../store/services/appointment";
+import InvoiceModal from "../forms/invoice";
 
 function Appointments() {
+  const [show, setShow] = useState(false);
+  const [appointmentId, setAppointmentId] = useState(null);
   const { data } = useGetAppointmentsQuery();
+
+  const handleShowInvoice = (id) => {
+    setAppointmentId(id);
+    setShow(true);
+  };
 
   const columns = [
     {
@@ -57,6 +65,18 @@ function Appointments() {
       dataIndex: "status",
       render: (text) => <Switch className="custom-switch" checked={text === "active"} />,
     },
+    {
+      title: "Acciones",
+      render: (_, record) => (
+        <button
+          type="button"
+          className="btn btn-outline-success"
+          onClick={() => handleShowInvoice(record.id)}
+        >
+          <i className="fe fe-pencil" /> Editar
+        </button>
+      ),
+    },
   ];
 
   const renderActionButton = () => (
@@ -94,6 +114,7 @@ function Appointments() {
           </div>
         </div>
       </div>
+      <InvoiceModal show={show} setShow={setShow} appointmentId={appointmentId} />
     </Layout>
   );
 }
